@@ -1,0 +1,76 @@
+---
+name: Terraform Azure Deployments
+
+on:
+  workflow_dispatch:
+    inputs:
+      deployment:
+        description: "Select the Deployment"
+        required: true
+        default: hub
+        type: choice
+        options:
+          - hub
+          - spoke
+      environment:
+        description: "Select the Environment"
+        required: true
+        default: prod
+        type: choice
+        options:
+          - dev
+          - prod
+      command:
+        description: "Select the Command"
+        required: true
+        default: plan
+        type: choice
+        options:
+          - plan
+          - apply
+          - destroy
+
+jobs:
+  validate-inputs:
+    name: Validate Deployment and Environment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate hub deployment rules
+        run: |
+          if [[ "${{ inputs.deployment }}" == "hub" && "${{ inputs.environment }}" != "prod" ]]; then
+            echo "ERROR: Hub deployment is allowed only in prod."
+            exit 1
+          fi
+
+  hub-prod:
+    needs: validate-inputs
+    if: inputs.deployment == 'hub' && inputs.environment == 'prod'
+    uses: ./.github/workflows/terraform.yaml
+    secrets: inherit
+    with:
+      deployment: hub
+      environment: prod
+      command: ${{ inputs.command }}
+      TF_CREDS: HUB_CREDENTIALS
+
+  spoke-dev:
+    needs: validate-inputs
+    if: inputs.deployment == 'spoke' && inputs.environment == 'dev'
+    uses: ./.github/workflows/terraform.yaml
+    secrets: inherit
+    with:
+      deployment: spoke
+      environment: dev
+      command: ${{ inputs.command }}
+      TF_CREDS: SPOKE_CREDENTIALS
+
+  spoke-prod:
+    needs: validate-inputs
+    if: inputs.deployment == 'spoke' && inputs.environment == 'prod'
+    uses: ./.github/workflows/terraform.yaml
+    secrets: inherit
+    with:
+      deployment: spoke
+      environment: prod
+      command: ${{ inputs.command }}
+      TF_CREDS: SPOKE_CREDENTIALS

@@ -1,0 +1,108 @@
+name: Terraform Azure Backend
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: Select Action
+        required: true
+        default: create
+        type: choice
+        options:
+          - create
+          - delete
+
+env:
+  LOCATION: ${{ fromJson(vars.AZURE_BACKEND_CONFIG_PROJECT01).LOCATION }}
+  BACKEND_RESOURCE_GROUP: ${{ fromJson(vars.AZURE_BACKEND_CONFIG_PROJECT01).RESOURCE_GROUP }}
+  BACKEND_STORAGE_ACCOUNT: ${{ fromJson(vars.AZURE_BACKEND_CONFIG_PROJECT01).STORAGE_ACCOUNT }}
+  BACKEND_HUB_CONTAINER: ${{ fromJson(vars.AZURE_BACKEND_CONFIG_PROJECT01).HUB_CONTAINER }}
+  BACKEND_SPOKE_CONTAINER: ${{ fromJson(vars.AZURE_BACKEND_CONFIG_PROJECT01).SPOKE_CONTAINER }}
+
+jobs:
+  TerraformAzureBackend:
+    runs-on: [self-hosted, Linux, X64]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Azure login
+      uses: azure/login@v2
+      with:
+        creds: ${{ secrets.HUB_CREDENTIALS }}
+
+    - name: Terraform Backend Azure Setup
+      env:
+        ACTION: ${{ github.event.inputs.action }}
+      run: |
+        #!/bin/bash
+        set -euo pipefail
+
+        echo "===================================="
+        echo " Terraform Azure Backend - $ACTION "
+        echo "===================================="
+
+        # Validate storage account name
+        if [[ ! "$BACKEND_STORAGE_ACCOUNT" =~ ^[a-z0-9]{3,24}$ ]]; then
+          echo "ERROR: Invalid storage account name."
+          echo "Must be 3-24 characters, lowercase letters and numbers only."
+          exit 1
+        fi
+
+        if [[ "$ACTION" == "create" ]]; then
+          echo "------------------------"
+          echo " Creating Resource Group"
+          echo "------------------------"
+          az group create \
+            --name "$BACKEND_RESOURCE_GROUP" \
+            --location "$LOCATION" \
+            --only-show-errors
+
+          echo "-------------------------"
+          echo " Creating Storage Account"
+          echo "-------------------------"
+          az storage account create \
+            --name "$BACKEND_STORAGE_ACCOUNT" \
+            --resource-group "$BACKEND_RESOURCE_GROUP" \
+            --location "$LOCATION" \
+            --sku Standard_LRS \
+            --only-show-errors
+
+          echo "----------------------------"
+          echo " Creating Storage Containers"
+          echo "----------------------------"
+
+          containers=(
+            "$BACKEND_HUB_CONTAINER"
+            "$BACKEND_SPOKE_CONTAINER"
+          )
+
+          for container in "${containers[@]}"; do
+            az storage container create \
+              --name "$container" \
+              --account-name "$BACKEND_STORAGE_ACCOUNT" \
+              --auth-mode login \
+              --only-show-errors
+          done
+
+          echo "Terraform backend infrastructure created successfully."
+
+        elif [[ "$ACTION" == "delete" ]]; then
+          echo "-----------------------------------------"
+          echo " WARNING: DELETING TERRAFORM BACKEND RG"
+          echo " Resource Group: $BACKEND_RESOURCE_GROUP"
+          echo "-----------------------------------------"
+
+          az group delete \
+            --name "$BACKEND_RESOURCE_GROUP" \
+            --yes \
+            --no-wait \
+            --only-show-errors
+
+          echo "Delete operation initiated."
+
+        else
+          echo "ERROR: Invalid action. Use 'create' or 'delete'."
+          exit 1
+        fi

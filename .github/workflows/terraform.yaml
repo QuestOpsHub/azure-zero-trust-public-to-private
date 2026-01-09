@@ -1,0 +1,189 @@
+---
+name: Deployment
+
+on:
+  workflow_call:
+    inputs:
+      deployment:
+        required: true
+        type: string
+      environment:
+        required: true
+        type: string
+      command:
+        required: true
+        type: string
+      TF_CREDS:
+        required: true
+        type: string
+
+env:
+  ARM_TENANT_ID: ${{ fromJson(secrets.HUB_CREDENTIALS).tenantId }}
+  ARM_SUBSCRIPTION_ID: ${{ fromJson(secrets.HUB_CREDENTIALS).subscriptionId }}
+  ARM_CLIENT_ID: ${{ fromJson(secrets.HUB_CREDENTIALS).clientId }}
+  ARM_CLIENT_SECRET: ${{ fromJson(secrets.HUB_CREDENTIALS).clientSecret }}
+  resource_group_name: ${{ fromJson(vars.AZURE_BACKEND_CONFIG_PROJECT01).RESOURCE_GROUP }}
+  storage_account_name: ${{ fromJson(vars.AZURE_BACKEND_CONFIG_PROJECT01).STORAGE_ACCOUNT }}
+  hub_container_name: ${{ fromJson(vars.AZURE_BACKEND_CONFIG_PROJECT01).HUB_CONTAINER }}
+  spoke_container_name: ${{ fromJson(vars.AZURE_BACKEND_CONFIG_PROJECT01).SPOKE_CONTAINER }}
+  admin_username: ${{ vars.ADMIN_USERNAME }}
+  admin_password: ${{ secrets.ADMIN_PASSWORD }}
+
+jobs:
+  deployment:
+    runs-on: [self-hosted, Linux, X64]
+    steps:
+      - name: GitHub authentication
+        run: |
+          git config --global url."https://${{ secrets.QUESTOPSHUB_PAT_TOKEN }}@github.com".insteadOf https://github.com
+
+      - name: Hide secrets
+        run: |
+          echo "::add-mask::$ARM_CLIENT_SECRET"
+          echo "::add-mask::$admin_password"
+      
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: NodeJS setup
+        uses: actions/setup-node@v4
+        with:
+            node-version: 20.x
+
+      - name: Terraform setup
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform hub ${{ inputs.environment }} plan
+        if: ${{ inputs.deployment == 'hub' && inputs.command == 'plan' }}
+        run: |
+          terraform init \
+            -backend-config="resource_group_name=${{ env.resource_group_name }}" \
+            -backend-config="storage_account_name=${{ env.storage_account_name }}" \
+            -backend-config="container_name=${{ env.hub_container_name }}" \
+            -backend-config="key=${{ inputs.environment }}/hub.${{ inputs.environment }}.tfstate"
+
+          terraform plan \
+            -var subscription_id=${{ fromJson(secrets[inputs.TF_CREDS]).subscriptionId }} \
+            -var client_id=${{ fromJson(secrets[inputs.TF_CREDS]).clientId }} \
+            -var client_secret=${{ fromJson(secrets[inputs.TF_CREDS]).clientSecret }} \
+            -var tenant_id=${{ fromJson(secrets[inputs.TF_CREDS]).tenantId }} \
+            -var admin_username=${{ env.admin_username }} \
+            -var admin_password=${{ env.admin_password }} \
+            -var-file=${{ github.workspace }}/vars/${{ inputs.environment }}/hub.tfvars | tee hub-${{ inputs.environment }}.txt
+        working-directory: deployments/hub
+
+      - name: Terraform hub ${{ inputs.environment }} apply
+        if: ${{ inputs.deployment == 'hub' && inputs.command == 'apply' }}
+        run: |
+          set -o pipefail
+          set -e
+
+          terraform init \
+            -backend-config="resource_group_name=${{ env.resource_group_name }}" \
+            -backend-config="storage_account_name=${{ env.storage_account_name }}" \
+            -backend-config="container_name=${{ env.hub_container_name }}" \
+            -backend-config="key=${{ inputs.environment }}/hub.${{ inputs.environment }}.tfstate"
+
+          terraform apply -auto-approve \
+            -var subscription_id=${{ fromJson(secrets[inputs.TF_CREDS]).subscriptionId }} \
+            -var client_id=${{ fromJson(secrets[inputs.TF_CREDS]).clientId }} \
+            -var client_secret=${{ fromJson(secrets[inputs.TF_CREDS]).clientSecret }} \
+            -var tenant_id=${{ fromJson(secrets[inputs.TF_CREDS]).tenantId }} \
+            -var admin_username=${{ env.admin_username }} \
+            -var admin_password=${{ env.admin_password }} \
+            -var-file=${{ github.workspace }}/vars/${{ inputs.environment }}/hub.tfvars | tee hub-${{ inputs.environment }}.txt
+        working-directory: deployments/hub
+
+      - name: Terraform spoke ${{ inputs.environment }} plan
+        if: ${{ inputs.deployment == 'spoke' && inputs.command == 'plan' }}
+        run: |
+          terraform init \
+            -backend-config="resource_group_name=${{ env.resource_group_name }}" \
+            -backend-config="storage_account_name=${{ env.storage_account_name }}" \
+            -backend-config="container_name=${{ env.spoke_container_name }}" \
+            -backend-config="key=${{ inputs.environment }}/spoke.${{ inputs.environment }}.tfstate"
+
+          terraform plan \
+            -var subscription_id=${{ fromJson(secrets[inputs.TF_CREDS]).subscriptionId }} \
+            -var client_id=${{ fromJson(secrets[inputs.TF_CREDS]).clientId }} \
+            -var client_secret=${{ fromJson(secrets[inputs.TF_CREDS]).clientSecret }} \
+            -var tenant_id=${{ fromJson(secrets[inputs.TF_CREDS]).tenantId }} \
+            -var hub_subscription_id=${{ env.ARM_SUBSCRIPTION_ID }} \
+            -var hub_client_id=${{ env.ARM_CLIENT_ID }} \
+            -var hub_client_secret=${{ env.ARM_CLIENT_SECRET }} \
+            -var admin_username=${{ env.admin_username }} \
+            -var admin_password=${{ env.admin_password }} \
+            -var-file=${{ github.workspace }}/vars/${{ inputs.environment }}/spoke.tfvars | tee spoke-${{ inputs.environment }}.txt
+        working-directory: deployments/spoke
+
+      - name: Terraform spoke ${{ inputs.environment }} apply
+        if: ${{ inputs.deployment == 'spoke' && inputs.command == 'apply' }}
+        run: |
+          set -o pipefail
+          set -e
+
+          terraform init \
+            -backend-config="resource_group_name=${{ env.resource_group_name }}" \
+            -backend-config="storage_account_name=${{ env.storage_account_name }}" \
+            -backend-config="container_name=${{ env.spoke_container_name }}" \
+            -backend-config="key=${{ inputs.environment }}/spoke.${{ inputs.environment }}.tfstate"
+
+          terraform apply -auto-approve \
+            -var subscription_id=${{ fromJson(secrets[inputs.TF_CREDS]).subscriptionId }} \
+            -var client_id=${{ fromJson(secrets[inputs.TF_CREDS]).clientId }} \
+            -var client_secret=${{ fromJson(secrets[inputs.TF_CREDS]).clientSecret }} \
+            -var tenant_id=${{ fromJson(secrets[inputs.TF_CREDS]).tenantId }} \
+            -var hub_subscription_id=${{ env.ARM_SUBSCRIPTION_ID }} \
+            -var hub_client_id=${{ env.ARM_CLIENT_ID }} \
+            -var hub_client_secret=${{ env.ARM_CLIENT_SECRET }} \
+            -var admin_username=${{ env.admin_username }} \
+            -var admin_password=${{ env.admin_password }} \
+            -var-file=${{ github.workspace }}/vars/${{ inputs.environment }}/spoke.tfvars | tee spoke-${{ inputs.environment }}.txt
+        working-directory: deployments/spoke
+
+      - name: Print job summary
+        if: ${{ inputs.command != 'destroy' }}
+        uses: sgametrio/terraform-summary-action@main
+        with:
+          log-file: ${{ github.workspace }}/deployments/${{ inputs.deployment }}/${{ inputs.deployment }}-${{ inputs.environment }}.txt
+
+      - name: Terraform hub ${{ inputs.environment }} destroy
+        if: ${{ inputs.deployment == 'hub' && inputs.command == 'destroy' }}
+        run: |
+          terraform init \
+            -backend-config="resource_group_name=${{ env.resource_group_name }}" \
+            -backend-config="storage_account_name=${{ env.storage_account_name }}" \
+            -backend-config="container_name=${{ env.hub_container_name }}" \
+            -backend-config="key=${{ inputs.environment }}/hub.${{ inputs.environment }}.tfstate"
+
+          terraform destroy -auto-approve \
+            -var subscription_id=${{ fromJson(secrets[inputs.TF_CREDS]).subscriptionId }} \
+            -var client_id=${{ fromJson(secrets[inputs.TF_CREDS]).clientId }} \
+            -var client_secret=${{ fromJson(secrets[inputs.TF_CREDS]).clientSecret }} \
+            -var tenant_id=${{ fromJson(secrets[inputs.TF_CREDS]).tenantId }} \
+            -var admin_username=${{ env.admin_username }} \
+            -var admin_password=${{ env.admin_password }} \
+            -var-file=${{ github.workspace }}/vars/${{ inputs.environment }}/hub.tfvars
+        working-directory: deployments/hub
+
+      - name: Terraform spoke ${{ inputs.environment }} destroy
+        if: ${{ inputs.deployment == 'spoke' && inputs.command == 'destroy' }}
+        run: |
+          terraform init \
+            -backend-config="resource_group_name=${{ env.resource_group_name }}" \
+            -backend-config="storage_account_name=${{ env.storage_account_name }}" \
+            -backend-config="container_name=${{ env.spoke_container_name }}" \
+            -backend-config="key=${{ inputs.environment }}/spoke.${{ inputs.environment }}.tfstate"
+
+          terraform destroy -auto-approve \
+            -var subscription_id=${{ fromJson(secrets[inputs.TF_CREDS]).subscriptionId }} \
+            -var client_id=${{ fromJson(secrets[inputs.TF_CREDS]).clientId }} \
+            -var client_secret=${{ fromJson(secrets[inputs.TF_CREDS]).clientSecret }} \
+            -var tenant_id=${{ fromJson(secrets[inputs.TF_CREDS]).tenantId }} \
+            -var hub_subscription_id=${{ env.ARM_SUBSCRIPTION_ID }} \
+            -var hub_client_id=${{ env.ARM_CLIENT_ID }} \
+            -var hub_client_secret=${{ env.ARM_CLIENT_SECRET }} \
+            -var admin_username=${{ env.admin_username }} \
+            -var admin_password=${{ env.admin_password }} \
+            -var-file=${{ github.workspace }}/vars/${{ inputs.environment }}/spoke.tfvars
+        working-directory: deployments/spoke
