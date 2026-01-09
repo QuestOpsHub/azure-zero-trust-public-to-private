@@ -43,6 +43,11 @@ variable "hub_spoke_peering" {}
 #------------------------
 variable "user_assigned_identity" {}
 
+#-----------
+# Key Vault
+#-----------
+variable "key_vault" {}
+
 #-----------------
 # Storage Account
 #-----------------

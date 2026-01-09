@@ -135,6 +135,63 @@ module "user_assigned_identity" {
   )
 }
 
+#-----------
+# Key Vault
+#-----------
+locals {
+  key_vault_access_policy = {
+    default = {
+      admin_user = {
+        #object_id = "c659b602-0560-47f7-8583-2c46d8e666bd" # @todo remove
+        object_id               = data.azuread_user.admin_user.object_id
+        key_permissions         = ["Backup", "Create", "Decrypt", "Delete", "Encrypt", "Get", "Import", "List", "Purge", "Recover", "Restore", "Sign", "UnwrapKey", "Update", "Verify", "WrapKey", "Release", "Rotate", "GetRotationPolicy", "SetRotationPolicy"]
+        secret_permissions      = ["Backup", "Delete", "Get", "List", "Purge", "Recover", "Restore", "Set"]
+        certificate_permissions = ["Backup", "Create", "Delete", "DeleteIssuers", "Get", "GetIssuers", "Import", "List", "ListIssuers", "ManageContacts", "ManageIssuers", "Purge", "Recover", "Restore", "SetIssuers", "Update"]
+        storage_permissions     = ["Backup", "Delete", "DeleteSAS", "Get", "GetSAS", "List", "ListSAS", "Purge", "Recover", "RegenerateKey", "Restore", "Set", "SetSAS", "Update"]
+      },
+    },
+  }
+  key_vault_network_acls = {
+    default = {
+      subnet_details = {
+        default = {
+          vnet_rg_name = module.virtual_network["default"].resource_group_name
+          vnet_name    = module.virtual_network["default"].name
+          subnet_name  = module.virtual_network["default"].subnets["default"].name
+        },
+      }
+    },
+  }
+}
+
+module "key_vault" {
+  source = "git::https://github.com/QuestOpsHub/terraform-azurerm-key-vault.git?ref=v1.0.0"
+
+  for_each                        = var.key_vault
+  name                            = "${each.value.name}-${local.resource_suffix}-${module.random_string.result}"
+  location                        = var.helpers.location
+  resource_group_name             = module.resource_group[each.value.resource_group].name
+  sku_name                        = each.value.sku_name
+  access_policy                   = merge(lookup(each.value, "access_policy", {}), local.key_vault_access_policy[each.key])
+  enabled_for_deployment          = lookup(each.value, "enabled_for_deployment", null)
+  enabled_for_disk_encryption     = lookup(each.value, "enabled_for_disk_encryption", null)
+  enabled_for_template_deployment = lookup(each.value, "enabled_for_template_deployment", null)
+  enable_rbac_authorization       = lookup(each.value, "enable_rbac_authorization", null)
+  network_acls                    = merge(lookup(each.value, "network_acls", {}), local.key_vault_network_acls[each.key])
+  purge_protection_enabled        = lookup(each.value, "purge_protection_enabled", null)
+  public_network_access_enabled   = lookup(each.value, "public_network_access_enabled", true)
+  soft_delete_retention_days      = lookup(each.value, "soft_delete_retention_days", null)
+
+  tags = merge(
+    local.timestamp_tag,
+    local.common_tags,
+    {
+      owner = lookup(var.key_vault, "resource_tags", local.resource_tags).owner
+      team  = lookup(var.key_vault, "resource_tags", local.resource_tags).team
+    }
+  )
+}
+
 #-----------------
 # Storage Account
 #-----------------

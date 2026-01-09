@@ -8,3 +8,7 @@ data "azurerm_storage_account" "storage_account" {
 }
 
 data "azurerm_client_config" "current" {}
+
+data "azuread_user" "admin_user" {
+  user_principal_name = "questopshub.microsoft_gmail.com#EXT#@questopshubmicrosoftgmail.onmicrosoft.com"
+}
