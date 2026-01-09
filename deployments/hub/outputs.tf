@@ -29,6 +29,6 @@ output "private_dns_zone" {
 #---------------
 # User Identity
 #---------------
-output "user_identity" {
-  value = module.user_identity
+output "user_assigned_identity" {
+  value = module.user_assigned_identity
 }
