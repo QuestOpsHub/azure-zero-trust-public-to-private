@@ -169,7 +169,7 @@ module "key_vault" {
 
   for_each                        = var.key_vault
   name                            = "${each.value.name}-${local.resource_suffix}-${module.random_string.result}"
-  location                        = var.helpers.location
+  location                        = var.helpers.region
   resource_group_name             = module.resource_group[each.value.resource_group].name
   sku_name                        = each.value.sku_name
   access_policy                   = merge(lookup(each.value, "access_policy", {}), local.key_vault_access_policy[each.key])
