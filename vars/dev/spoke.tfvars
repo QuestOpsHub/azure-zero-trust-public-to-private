@@ -108,19 +108,10 @@ user_assigned_identity = {
 #-----------
 key_vault = {
   default = {
-    name           = "kv"
-    resource_group = "security"
-    sku_name       = "standard"
-    access_policy = {
-      # spoke_service_principal
-      spoke_dev_service_principal = {
-        object_id               = "223ff882-b1c1-48a4-b40f-d06ee8c67a43"
-        key_permissions         = ["Backup", "Create", "Decrypt", "Delete", "Encrypt", "Get", "Import", "List", "Purge", "Recover", "Restore", "Sign", "UnwrapKey", "Update", "Verify", "WrapKey", "Release", "Rotate", "GetRotationPolicy", "SetRotationPolicy"]
-        secret_permissions      = ["Backup", "Delete", "Get", "List", "Purge", "Recover", "Restore", "Set"]
-        certificate_permissions = ["Backup", "Create", "Delete", "DeleteIssuers", "Get", "GetIssuers", "Import", "List", "ListIssuers", "ManageContacts", "ManageIssuers", "Purge", "Recover", "Restore", "SetIssuers", "Update"]
-        storage_permissions     = ["Backup", "Delete", "DeleteSAS", "Get", "GetSAS", "List", "ListSAS", "Purge", "Recover", "RegenerateKey", "Restore", "Set", "SetSAS", "Update"]
-      },
-    }
+    name                            = "kv"
+    resource_group                  = "security"
+    sku_name                        = "standard"
+    access_policy                   = {}
     enabled_for_deployment          = false
     enabled_for_template_deployment = true
     enable_rbac_authorization       = false
