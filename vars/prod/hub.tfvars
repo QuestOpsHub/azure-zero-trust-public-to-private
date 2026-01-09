@@ -390,56 +390,7 @@ linux_virtual_machine = {
       private_ip_address_allocation = "Dynamic"
       primary                       = true
     }
-    managed_disks = {
-      "disk01" = {
-        storage_account_type = "Standard_LRS"
-        create_option        = "Empty"
-        disk_size_gb         = "10"
-        edge_zone            = null
-        zone                 = 1
-        lun                  = "10"
-        caching              = "ReadWrite"
-      },
-      "disk02" = {
-        storage_account_type = "Standard_LRS"
-        create_option        = "Empty"
-        disk_size_gb         = "10"
-        edge_zone            = null
-        zone                 = 1
-        lun                  = "20"
-        caching              = "ReadWrite"
-      },
-      "disk03" = {
-        storage_account_type = "Standard_LRS"
-        create_option        = "Empty"
-        disk_size_gb         = "10"
-        edge_zone            = null
-        zone                 = 1
-        lun                  = "30"
-        caching              = "ReadWrite"
-      },
-      "disk04" = {
-        storage_account_type = "Standard_LRS"
-        create_option        = "Empty"
-        disk_size_gb         = "10"
-        edge_zone            = null
-        zone                 = 1
-        lun                  = "40"
-        caching              = "ReadWrite"
-      },
-    }
-    vm_extensions = {
-      "Nginx" = {
-        name                 = "Nginx"
-        publisher            = "Microsoft.Azure.Extensions"
-        type                 = "CustomScript"
-        type_handler_version = "2.0"
-        settings             = <<SETTINGS
-{
- "commandToExecute": "sudo apt-get update && sudo apt-get install nginx -y && echo \"<html><body style='background-color:blue'><h1>Hello World from $(hostname)</h1></body></html>\" > /var/www/html/index.html && sudo systemctl restart nginx"
-}
-SETTINGS
-      }
-    }
+    managed_disks = {}
+    vm_extensions = {}
   },
 }
