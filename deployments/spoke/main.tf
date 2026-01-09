@@ -12,7 +12,7 @@ data "terraform_remote_state" "hub" {
   backend = "azurerm"
   config = {
     resource_group_name  = "rg-qoh-tf-backend-cus"
-    storage_account_name = "stqohtfbackendcus7492"
+    storage_account_name = "stqohtfbackendcus9284"
     container_name       = "hub-tfstate"
     key                  = "prod/hub.prod.tfstate"
     subscription_id      = var.hub_subscription_id
