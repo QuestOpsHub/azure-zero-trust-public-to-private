@@ -25,3 +25,10 @@ output "virtual_network" {
 output "private_dns_zone" {
   value = module.private_dns_zone
 }
+
+#---------------
+# User Identity
+#---------------
+output "user_identity" {
+  value = module.user_identity
+}
