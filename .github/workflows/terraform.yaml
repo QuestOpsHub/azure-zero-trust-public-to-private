@@ -22,10 +22,10 @@ env:
   ARM_SUBSCRIPTION_ID: ${{ fromJson(secrets.HUB_CREDENTIALS).subscriptionId }}
   ARM_CLIENT_ID: ${{ fromJson(secrets.HUB_CREDENTIALS).clientId }}
   ARM_CLIENT_SECRET: ${{ fromJson(secrets.HUB_CREDENTIALS).clientSecret }}
-  resource_group_name: ${{ fromJson(vars.AZURE_BACKEND_CONFIG_PROJECT01).RESOURCE_GROUP }}
-  storage_account_name: ${{ fromJson(vars.AZURE_BACKEND_CONFIG_PROJECT01).STORAGE_ACCOUNT }}
-  hub_container_name: ${{ fromJson(vars.AZURE_BACKEND_CONFIG_PROJECT01).HUB_CONTAINER }}
-  spoke_container_name: ${{ fromJson(vars.AZURE_BACKEND_CONFIG_PROJECT01).SPOKE_CONTAINER }}
+  resource_group_name: ${{ fromJson(vars.AZURE_BACKEND_CONFIG_PROJECT02).RESOURCE_GROUP }}
+  storage_account_name: ${{ fromJson(vars.AZURE_BACKEND_CONFIG_PROJECT02).STORAGE_ACCOUNT }}
+  hub_container_name: ${{ fromJson(vars.AZURE_BACKEND_CONFIG_PROJECT02).HUB_CONTAINER }}
+  spoke_container_name: ${{ fromJson(vars.AZURE_BACKEND_CONFIG_PROJECT02).SPOKE_CONTAINER }}
   admin_username: ${{ vars.ADMIN_USERNAME }}
   admin_password: ${{ secrets.ADMIN_PASSWORD }}
 
