@@ -32,3 +32,17 @@ output "private_dns_zone" {
 output "user_assigned_identity" {
   value = module.user_assigned_identity
 }
+
+#--------------
+# Bastion Host
+#--------------
+output "bastion_host" {
+  value = module.bastion_host
+}
+
+#-----------------------
+# Linux Virtual Machine
+#-----------------------
+output "linux_virtual_machine" {
+  value = module.linux_virtual_machine
+}
