@@ -87,8 +87,8 @@ private_dns_zone = {
     resource_group = "network"
     virtual_network_ids = [
       {
-        name    = "dns-vnet-qoh-hub-jumpbox-cus-link"
-        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-qoh-hub-jumpbox-cus/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-jumpbox-cus"
+        name    = "dns-vnet-qoh-hub-prod-cus-4k6f-link"
+        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-network-qoh-hub-prod-cus-4k6f/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-prod-cus-4k6f"
       }
     ]
   },
@@ -97,8 +97,8 @@ private_dns_zone = {
     resource_group = "network"
     virtual_network_ids = [
       {
-        name    = "dns-vnet-qoh-hub-jumpbox-cus-link"
-        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-qoh-hub-jumpbox-cus/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-jumpbox-cus"
+        name    = "dns-vnet-qoh-hub-prod-cus-4k6f-link"
+        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-network-qoh-hub-prod-cus-4k6f/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-prod-cus-4k6f"
       }
     ]
   },
@@ -107,8 +107,8 @@ private_dns_zone = {
     resource_group = "network"
     virtual_network_ids = [
       {
-        name    = "dns-vnet-qoh-hub-jumpbox-cus-link"
-        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-qoh-hub-jumpbox-cus/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-jumpbox-cus"
+        name    = "dns-vnet-qoh-hub-prod-cus-4k6f-link"
+        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-network-qoh-hub-prod-cus-4k6f/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-prod-cus-4k6f"
       }
     ]
   },
@@ -117,8 +117,8 @@ private_dns_zone = {
     resource_group = "network"
     virtual_network_ids = [
       {
-        name    = "dns-vnet-qoh-hub-jumpbox-cus-link"
-        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-qoh-hub-jumpbox-cus/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-jumpbox-cus"
+        name    = "dns-vnet-qoh-hub-prod-cus-4k6f-link"
+        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-network-qoh-hub-prod-cus-4k6f/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-prod-cus-4k6f"
       }
     ]
   },
@@ -127,8 +127,8 @@ private_dns_zone = {
     resource_group = "network"
     virtual_network_ids = [
       {
-        name    = "dns-vnet-qoh-hub-jumpbox-cus-link"
-        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-qoh-hub-jumpbox-cus/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-jumpbox-cus"
+        name    = "dns-vnet-qoh-hub-prod-cus-4k6f-link"
+        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-network-qoh-hub-prod-cus-4k6f/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-prod-cus-4k6f"
       }
     ]
   },
@@ -137,8 +137,8 @@ private_dns_zone = {
     resource_group = "network"
     virtual_network_ids = [
       {
-        name    = "dns-vnet-qoh-hub-jumpbox-cus-link"
-        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-qoh-hub-jumpbox-cus/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-jumpbox-cus"
+        name    = "dns-vnet-qoh-hub-prod-cus-4k6f-link"
+        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-network-qoh-hub-prod-cus-4k6f/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-prod-cus-4k6f"
       }
     ]
   },
@@ -147,8 +147,8 @@ private_dns_zone = {
     resource_group = "network"
     virtual_network_ids = [
       {
-        name    = "dns-vnet-qoh-hub-jumpbox-cus-link"
-        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-qoh-hub-jumpbox-cus/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-jumpbox-cus"
+        name    = "dns-vnet-qoh-hub-prod-cus-4k6f-link"
+        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-network-qoh-hub-prod-cus-4k6f/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-prod-cus-4k6f"
       }
     ]
   },
