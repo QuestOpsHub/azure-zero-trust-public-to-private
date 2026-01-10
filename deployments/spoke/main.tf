@@ -40,7 +40,7 @@ module "resource_group" {
   source = "git::https://github.com/QuestOpsHub/terraform-azurerm-resource-group.git?ref=v1.0.0"
 
   for_each   = var.resource_group
-  name       = "${each.value.name}-${local.resource_suffix}-${module.random_string.result}"
+  name       = "${each.value.name}-${local.resource_suffix}"
   location   = var.helpers.region
   managed_by = lookup(each.value, "managed_by", null)
 
