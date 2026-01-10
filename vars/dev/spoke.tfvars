@@ -252,11 +252,11 @@ storage_account = {
 storage_container = {
   default-func-lin = {
     name            = "default"
-    storage_account = "func-lin"
+    storage_account = "alpha"
   },
   default-func-win = {
     name            = "default"
-    storage_account = "func-win"
+    storage_account = "beta"
   },
 }
 
