@@ -192,3 +192,17 @@ storage_account = {
     }
   },
 }
+
+#-------------------
+# Storage Container
+#-------------------
+storage_container = {
+  default-func-lin = {
+    name            = "default"
+    storage_account = "func-lin"
+  },
+  default-func-win = {
+    name            = "default"
+    storage_account = "func-win"
+  },
+}

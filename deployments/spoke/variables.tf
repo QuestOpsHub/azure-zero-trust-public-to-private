@@ -58,6 +58,11 @@ variable "key_vault_secret" {}
 #-----------------
 variable "storage_account" {}
 
+#-------------------
+# Storage Container
+#-------------------
+variable "storage_container" {}
+
 # MISC
 
 variable "admin_username" {}
