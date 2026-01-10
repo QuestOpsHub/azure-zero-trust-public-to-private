@@ -45,33 +45,15 @@ DRY_RUN=false   # set to true to preview only
 # FUNCTIONS
 #-----------
 
-confirm() {
-  read -r -p "$1 [y/N]: " response
-  [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]
-}
-
 delete_resource_groups() {
   local subscription_id="$1"
   shift
   local resource_groups=("$@")
 
-  echo "--------------------------------------------------"
-  echo "Target subscription: $subscription_id"
-  echo "Resource groups to delete:"
-  for rg in "${resource_groups[@]}"; do
-    echo "  - $rg"
-  done
-  echo "--------------------------------------------------"
-
-  if ! confirm "Proceed with deletion in this subscription?"; then
-    echo "❌ Skipping subscription $subscription_id"
-    return
-  fi
-
   az account set --subscription "$subscription_id"
 
   for rg in "${resource_groups[@]}"; do
-    if az group exists --name "$rg"; then
+    if [[ "$(az group exists --name "$rg" -o tsv)" == "true" ]]; then
       if [[ "$DRY_RUN" == "true" ]]; then
         echo "🟡 DRY-RUN: Would delete RG '$rg'"
       else
@@ -88,14 +70,10 @@ delete_resource_groups() {
 # EXECUTION
 #-----------
 
-echo "🚨 WARNING: This script deletes Azure Resource Groups."
-echo "🚨 Make sure you are in the correct tenant and environment."
 echo ""
-
-confirm "Do you want to continue?" || exit 1
 
 delete_resource_groups "$HUB_SUBSCRIPTION_ID" "${HUB_RESOURCE_GROUPS[@]}"
 delete_resource_groups "$SPOKE_SUBSCRIPTION_ID" "${SPOKE_RESOURCE_GROUPS[@]}"
 
+echo ""
 echo "✅ Deletion requests submitted."
-echo "ℹ️  Use 'az group list --query \"[?properties.provisioningState=='Deleting']\"' to monitor."
