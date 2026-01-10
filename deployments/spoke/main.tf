@@ -203,7 +203,7 @@ module "key_vault" {
 #------------------
 module "key_vault_secret" {
   depends_on = [module.key_vault]
-  source     = "git::https://github.com/QuestOpsHub/QuestOpsHub-terraform-azure-modules.git//keyVaultSecret?ref=main"
+  source     = "git::https://github.com/QuestOpsHub/terraform-azurerm-key-vault-secret.git?ref=v1.0.0"
 
   for_each        = var.key_vault_secret
   name            = each.value.name
