@@ -63,6 +63,11 @@ variable "storage_account" {}
 #-------------------
 variable "storage_container" {}
 
+#--------------
+# Service Plan
+#--------------
+variable "service_plan" {}
+
 # MISC
 
 variable "admin_username" {}

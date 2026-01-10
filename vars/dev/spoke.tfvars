@@ -206,3 +206,33 @@ storage_container = {
     storage_account = "func-win"
   },
 }
+
+#--------------
+# Service Plan
+#--------------
+service_plan = {
+  "app-lin" = {
+    name           = "asp-app-lin"
+    resource_group = "app-lin"
+    os_type        = "Linux"
+    sku_name       = "P1v2"
+  },
+  "app-win" = {
+    name           = "asp-app-win"
+    resource_group = "app-win"
+    os_type        = "Windows"
+    sku_name       = "P1v2"
+  },
+  "func-lin" = {
+    name           = "asp-func-lin"
+    resource_group = "func-lin"
+    os_type        = "Linux"
+    sku_name       = "P1v2"
+  },
+  "func-win" = {
+    name           = "asp-func-win"
+    resource_group = "func-win"
+    os_type        = "Windows"
+    sku_name       = "P1v2"
+  },
+}
