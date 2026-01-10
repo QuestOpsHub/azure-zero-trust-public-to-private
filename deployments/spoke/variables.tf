@@ -83,8 +83,10 @@ variable "linux_web_app" {}
 #--------------------
 variable "linux_function_app" {}
 
-
-
+#------------------
+# CosmosDB Account
+#------------------
+variable "cosmosdb_account" {}
 
 
 

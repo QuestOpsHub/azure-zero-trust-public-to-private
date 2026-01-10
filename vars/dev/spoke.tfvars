@@ -380,3 +380,55 @@ linux_function_app = {
     storage_account = "func-lin"
   },
 }
+
+#------------------
+# CosmosDB Account
+#------------------
+cosmosdb_account = {
+  "alpha" = {
+    name           = "cosmon"
+    resource_group = "cosmosdb"
+    offer_type     = "Standard"
+    kind           = "MongoDB"
+    consistency_policy = {
+      consistency_level       = "BoundedStaleness"
+      max_interval_in_seconds = 300
+      max_staleness_prefix    = 100000
+    }
+    geo_location = {
+      eastus = {
+        location          = "eastus"
+        failover_priority = 1
+        zone_redundant    = false
+      },
+      westus = {
+        location          = "westus"
+        failover_priority = 0
+        zone_redundant    = false
+      }
+    }
+    automatic_failover_enabled    = true
+    public_network_access_enabled = true
+    capabilities = {
+      aggregation_pipeline = {
+        name = "EnableAggregationPipeline"
+      },
+      doc_level_ttl = {
+        name = "mongoEnableDocLevelTTL"
+      },
+      mongodb_version = {
+        name = "MongoDBv3.4"
+      },
+      mongo_enable = {
+        name = "EnableMongo"
+      }
+    }
+    backup = {
+      type = "Periodic"
+    }
+    identity = {
+      type     = "UserAssigned"
+      identity = "cosmon"
+    }
+  },
+}
