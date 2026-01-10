@@ -145,7 +145,7 @@ module "api_management" {
 
   security                      = lookup(each.value, "security", {})
   public_network_access_enabled = lookup(each.value, "public_network_access_enabled", true)
-  environment                   = var.helpers.region
+  environment                   = var.helpers.environment
   api_management_logger_name    = each.value.api_management_logger_name
   resource_id                   = module.application_insights["alpha"].id
   instrumentation_key           = module.application_insights["alpha"].instrumentation_key
