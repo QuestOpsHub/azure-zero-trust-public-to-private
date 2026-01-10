@@ -384,12 +384,12 @@ module "application_insights" {
 #---------------
 locals {
   app_linux_site_config = {
-    alpha = {
+    default = {
       container_registry_managed_identity_client_id = module.user_assigned_identity["app-lin"].client_id
     },
   }
   app_linux_app_settings = {
-    alpha = {
+    default = {
       APPINSIGHTS_INSTRUMENTATIONKEY             = module.application_insights["appi-app-lin"].instrumentation_key
       APPLICATIONINSIGHTS_CONNECTION_STRING      = module.application_insights["appi-app-lin"].connection_string
       APPINSIGHTS_PROFILERFEATURE_VERSION        = "1.0.0"
@@ -402,41 +402,41 @@ locals {
     },
   }
   app_linux_auth_settings = {
-    alpha = {},
+    default = {},
   }
   app_linux_auth_settings_v2 = {
-    alpha = {},
+    default = {},
   }
   app_linux_backup = {
-    alpha = {},
+    default = {},
   }
   app_linux_connection_string = {
-    alpha = {},
+    default = {},
   }
   app_linux_logs = {
-    alpha = {},
+    default = {},
   }
   app_linux_storage_account = {
-    alpha = {},
+    default = {},
   }
   app_linux_sticky_settings = {
-    alpha = {
+    default = {
       app_setting_names = ["APPLICATION_SLOT_NAME"]
     },
   }
   app_linux_slot_app_settings = {
-    alpha = {
+    default = {
       APPLICATION_SLOT_NAME = "staging"
     },
   }
 }
 
 module "linux_web_app" {
-  source = "git::https://github.com/QuestOpsHub/terraform-azurerm-linux-webapp.git?ref=main"
+  source = "git::https://github.com/QuestOpsHub/terraform-azurerm-linux-webapp.git?ref=v1.0.0"
 
   for_each                                 = var.linux_web_app
   name                                     = "${each.value.name}-${local.resource_suffix}-${module.random_string.result}"
-  location                                 = var.helpers.location
+  location                                 = var.helpers.region
   resource_group_name                      = module.resource_group[each.value.resource_group].name
   service_plan_id                          = module.service_plan[each.value.service_plan].id
   site_config                              = merge(lookup(each.value, "site_config", {}), local.app_linux_site_config[each.key])

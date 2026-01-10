@@ -33,6 +33,9 @@ resource_group = {
   database = {
     name = "rg-database"
   },
+  management = {
+    name = "rg-management"
+  },
 }
 
 #-----------------
@@ -213,25 +216,25 @@ storage_container = {
 service_plan = {
   "app-lin" = {
     name           = "asp-app-lin"
-    resource_group = "app-lin"
+    resource_group = "compute"
     os_type        = "Linux"
     sku_name       = "P1v2"
   },
   "app-win" = {
     name           = "asp-app-win"
-    resource_group = "app-win"
+    resource_group = "compute"
     os_type        = "Windows"
     sku_name       = "P1v2"
   },
   "func-lin" = {
     name           = "asp-func-lin"
-    resource_group = "func-lin"
+    resource_group = "compute"
     os_type        = "Linux"
     sku_name       = "P1v2"
   },
   "func-win" = {
     name           = "asp-func-win"
-    resource_group = "func-win"
+    resource_group = "compute"
     os_type        = "Windows"
     sku_name       = "P1v2"
   },
@@ -243,22 +246,59 @@ service_plan = {
 application_insights = {
   "appi-app-lin" = {
     name             = "appi-app-lin"
-    resource_group   = "app-lin"
+    resource_group   = "management"
     application_type = "web"
   },
   "appi-app-win" = {
     name             = "appi-app-win"
-    resource_group   = "app-win"
+    resource_group   = "management"
     application_type = "web"
   },
   "appi-func-lin" = {
     name             = "appi-func-lin"
-    resource_group   = "func-lin"
+    resource_group   = "management"
     application_type = "web"
   },
   "appi-func-win" = {
     name             = "appi-func-win"
-    resource_group   = "func-win"
+    resource_group   = "management"
     application_type = "web"
+  },
+}
+
+#---------------
+# Linux Web App
+#---------------
+linux_web_app = {
+  default = {
+    name           = "app-lin"
+    resource_group = "compute"
+    service_plan   = "app-lin"
+    https_only     = true
+    identity = {
+      type     = "UserAssigned"
+      identity = "app-lin"
+    }
+    site_config = {
+      always_on                               = true
+      container_registry_use_managed_identity = true
+      cors                                    = {}
+      ftps_state                              = "Disabled"
+      health_check_path                       = "/remoteEntry.js"
+      health_check_eviction_time_in_min       = 5
+      http2_enabled                           = true
+      load_balancing_mode                     = "WeightedRoundRobin"
+      minimum_tls_version                     = "1.2"
+    }
+    logs = {
+      detailed_error_messages = false
+      failed_request_tracing  = false
+      http_logs = {
+        file_system = {
+          retention_in_days = 5
+          retention_in_mb   = 25
+        }
+      }
+    }
   },
 }

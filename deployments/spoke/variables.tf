@@ -73,6 +73,10 @@ variable "service_plan" {}
 #----------------------
 variable "application_insights" {}
 
+#---------------
+# Linux Web App
+#---------------
+variable "linux_web_app" {}
 
 
 
