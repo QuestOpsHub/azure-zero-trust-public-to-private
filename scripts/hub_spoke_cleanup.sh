@@ -76,4 +76,4 @@ delete_resource_groups "$HUB_SUBSCRIPTION_ID" "${HUB_RESOURCE_GROUPS[@]}"
 delete_resource_groups "$SPOKE_SUBSCRIPTION_ID" "${SPOKE_RESOURCE_GROUPS[@]}"
 
 echo ""
-echo "✅ Deletion requests submitted."
+echo "✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅"
