@@ -140,7 +140,7 @@ module "user_assigned_identity" {
 #-----------
 locals {
   key_vault_access_policy = {
-    default = {
+    alpha = {
       admin_user = {
         object_id               = data.azuread_user.admin_user.object_id
         key_permissions         = ["Backup", "Create", "Decrypt", "Delete", "Encrypt", "Get", "Import", "List", "Purge", "Recover", "Restore", "Sign", "UnwrapKey", "Update", "Verify", "WrapKey", "Release", "Rotate", "GetRotationPolicy", "SetRotationPolicy"]
@@ -158,12 +158,12 @@ locals {
     },
   }
   key_vault_network_acls = {
-    default = {
+    alpha = {
       subnet_details = {
         default = {
-          vnet_rg_name = module.virtual_network["default"].resource_group_name
-          vnet_name    = module.virtual_network["default"].name
-          subnet_name  = module.virtual_network["default"].subnets["default"].name
+          vnet_rg_name = module.virtual_network["alpha"].resource_group_name
+          vnet_name    = module.virtual_network["alpha"].name
+          subnet_name  = module.virtual_network["alpha"].subnets["default"].name
         },
       }
     },
@@ -228,21 +228,21 @@ module "key_vault_secret" {
 #-----------------
 locals {
   storage_account_network_rules = {
-    func-lin = {
+    alpha = {
       subnet_details = {
         default = {
-          vnet_rg_name = module.virtual_network["default"].resource_group_name
-          vnet_name    = module.virtual_network["default"].name
-          subnet_name  = module.virtual_network["default"].subnets["default"].name
+          vnet_rg_name = module.virtual_network["alpha"].resource_group_name
+          vnet_name    = module.virtual_network["alpha"].name
+          subnet_name  = module.virtual_network["alpha"].subnets["default"].name
         },
       }
     },
-    func-win = {
+    beta = {
       subnet_details = {
         default = {
-          vnet_rg_name = module.virtual_network["default"].resource_group_name
-          vnet_name    = module.virtual_network["default"].name
-          subnet_name  = module.virtual_network["default"].subnets["default"].name
+          vnet_rg_name = module.virtual_network["alpha"].resource_group_name
+          vnet_name    = module.virtual_network["alpha"].name
+          subnet_name  = module.virtual_network["alpha"].subnets["default"].name
         },
       }
     },
@@ -384,12 +384,12 @@ module "application_insights" {
 #---------------
 locals {
   app_linux_site_config = {
-    default = {
+    alpha = {
       container_registry_managed_identity_client_id = module.user_assigned_identity["app-lin"].client_id
     },
   }
   app_linux_app_settings = {
-    default = {
+    alpha = {
       APPINSIGHTS_INSTRUMENTATIONKEY             = module.application_insights["appi-app-lin"].instrumentation_key
       APPLICATIONINSIGHTS_CONNECTION_STRING      = module.application_insights["appi-app-lin"].connection_string
       APPINSIGHTS_PROFILERFEATURE_VERSION        = "1.0.0"
@@ -402,30 +402,30 @@ locals {
     },
   }
   app_linux_auth_settings = {
-    default = {},
+    alpha = {},
   }
   app_linux_auth_settings_v2 = {
-    default = {},
+    alpha = {},
   }
   app_linux_backup = {
-    default = {},
+    alpha = {},
   }
   app_linux_connection_string = {
-    default = {},
+    alpha = {},
   }
   app_linux_logs = {
-    default = {},
+    alpha = {},
   }
   app_linux_storage_account = {
-    default = {},
+    alpha = {},
   }
   app_linux_sticky_settings = {
-    default = {
+    alpha = {
       app_setting_names = ["APPLICATION_SLOT_NAME"]
     },
   }
   app_linux_slot_app_settings = {
-    default = {
+    alpha = {
       APPLICATION_SLOT_NAME = "staging"
     },
   }
@@ -485,32 +485,32 @@ module "linux_web_app" {
 #--------------------
 locals {
   func_linux_site_config = {
-    node = {
+    alpha = {
       application_insights_key               = module.application_insights["appi-func-lin"].instrumentation_key
       application_insights_connection_string = module.application_insights["appi-func-lin"].connection_string
     },
-    java = {
+    beta = {
       application_insights_key               = module.application_insights["appi-func-lin"].instrumentation_key
       application_insights_connection_string = module.application_insights["appi-func-lin"].connection_string
     },
   }
   func_linux_app_settings = {
-    node = {
+    alpha = {
       AZURE_TENANT_ID                     = var.tenant_id
       AZURE_CLIENT_ID                     = var.client_id
       AZURE_CLIENT_SECRET                 = var.client_secret
-      AZURE_KV_URL                        = module.key_vault["default"].vault_uri
+      AZURE_KV_URL                        = module.key_vault["alpha"].vault_uri
       FUNCTIONS_EXTENSION_VERSION         = "~4"
       FUNCTIONS_WORKER_RUNTIME            = "node"
       WEBSITE_ENABLE_SYNC_UPDATE_SITE     = true
       WEBSITES_ENABLE_APP_SERVICE_STORAGE = true
       REV_REC_SCHEDULE                    = "0 0 9 * * *"
     },
-    java = {
+    beta = {
       AZURE_TENANT_ID                     = var.tenant_id
       AZURE_CLIENT_ID                     = var.client_id
       AZURE_CLIENT_SECRET                 = var.client_secret
-      AZURE_KV_URL                        = module.key_vault["default"].vault_uri
+      AZURE_KV_URL                        = module.key_vault["alpha"].vault_uri
       FUNCTIONS_EXTENSION_VERSION         = "~4"
       FUNCTIONS_WORKER_RUNTIME            = "java"
       WEBSITE_ENABLE_SYNC_UPDATE_SITE     = true
@@ -519,20 +519,20 @@ locals {
     },
   }
   func_linux_auth_settings = {
-    node = {},
-    java = {},
+    alpha = {},
+    beta  = {},
   }
   func_linux_auth_settings_v2 = {
-    node = {},
-    java = {},
+    alpha = {},
+    beta  = {},
   }
   func_linux_backup = {
-    node = {},
-    java = {},
+    alpha = {},
+    beta  = {},
   }
   func_linux_storage_account = {
-    node = {},
-    java = {},
+    alpha = {},
+    beta  = {},
   }
 }
 

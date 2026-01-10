@@ -42,7 +42,7 @@ resource_group = {
 # Virtual Network
 #-----------------
 virtual_network = {
-  default = {
+  alpha = {
     name           = "vnet"
     resource_group = "network"
     address_space  = ["34.0.0.0/16"]
@@ -61,7 +61,7 @@ virtual_network = {
 #---------------------------------------
 hub_spoke_peering = {
   hub_vnet                           = "default"
-  spoke_vnet                         = "default"
+  spoke_vnet                         = "alpha"
   peer1_allow_virtual_network_access = true
   peer1_allow_forwarded_traffic      = true
   peer1_allow_gateway_transit        = true
@@ -110,7 +110,7 @@ user_assigned_identity = {
 # Key Vault
 #-----------
 key_vault = {
-  default = {
+  alpha = {
     name                            = "kv"
     resource_group                  = "security"
     sku_name                        = "standard"
@@ -134,15 +134,15 @@ key_vault = {
 # Key Vault Secret
 #------------------
 key_vault_secret = {
-  primary = {
-    name      = "primary"
-    value     = "primary"
-    key_vault = "default"
+  alpha = {
+    name      = "alpha"
+    value     = "alpha"
+    key_vault = "alpha"
   }
-  secondary = {
-    name      = "secondary"
-    value     = "secondary"
-    key_vault = "default"
+  beta = {
+    name      = "beta"
+    value     = "beta"
+    key_vault = "alpha"
   }
 }
 
@@ -150,8 +150,8 @@ key_vault_secret = {
 # Storage Account
 #-----------------
 storage_account = {
-  # Storage Account used by the lin Function App(s)
-  func-lin = {
+  # Storage Account used by the Linux Function App(s)
+  alpha = {
     name                     = "st-func-lin"
     resource_group           = "compute"
     account_tier             = "Standard"
@@ -162,9 +162,34 @@ storage_account = {
       type     = "UserAssigned"
       identity = "st-func-lin"
     }
-    blob_properties  = {}
-    queue_properties = {}
-    share_properties = {}
+    blob_properties = {
+      cors_rule = {
+        allowed_headers    = ["*"]
+        allowed_methods    = ["GET"]
+        allowed_origins    = ["https://*.lightmetrics.co", "https://*.detroitconnect.com", "http://localhost:4300"]
+        exposed_headers    = ["x-ms-meta-*"]
+        max_age_in_seconds = "200"
+      }
+      versioning_enabled = true
+    }
+    queue_properties = {
+      cors_rule = {
+        allowed_headers    = ["*"]
+        allowed_methods    = ["GET", "OPTIONS"]
+        allowed_origins    = ["https://myhost.com"]
+        exposed_headers    = ["*"]
+        max_age_in_seconds = "200"
+      }
+    }
+    share_properties = {
+      cors_rule = {
+        allowed_headers    = ["*"]
+        allowed_methods    = ["GET"]
+        allowed_origins    = ["https://myhost.com"]
+        exposed_headers    = ["x-ms-meta-*"]
+        max_age_in_seconds = "200"
+      }
+    }
     network_rules = {
       default_action      = "Allow" # @todo Set back to Deny
       bypass              = ["AzureServices", "Metrics"]
@@ -172,8 +197,8 @@ storage_account = {
       private_link_access = {}
     }
   },
-  # Storage Account used by the win Function App(s)
-  func-win = {
+  # Storage Account used by the Windows Function App(s)
+  beta = {
     name                     = "st-func-win"
     resource_group           = "compute"
     account_tier             = "Standard"
@@ -184,9 +209,34 @@ storage_account = {
       type     = "UserAssigned"
       identity = "st-func-win"
     }
-    blob_properties  = {}
-    queue_properties = {}
-    share_properties = {}
+    blob_properties = {
+      cors_rule = {
+        allowed_headers    = ["*"]
+        allowed_methods    = ["GET"]
+        allowed_origins    = ["https://*.lightmetrics.co", "https://*.detroitconnect.com", "http://localhost:4300"]
+        exposed_headers    = ["x-ms-meta-*"]
+        max_age_in_seconds = "200"
+      }
+      versioning_enabled = true
+    }
+    queue_properties = {
+      cors_rule = {
+        allowed_headers    = ["*"]
+        allowed_methods    = ["GET", "OPTIONS"]
+        allowed_origins    = ["https://myhost.com"]
+        exposed_headers    = ["*"]
+        max_age_in_seconds = "200"
+      }
+    }
+    share_properties = {
+      cors_rule = {
+        allowed_headers    = ["*"]
+        allowed_methods    = ["GET"]
+        allowed_origins    = ["https://myhost.com"]
+        exposed_headers    = ["x-ms-meta-*"]
+        max_age_in_seconds = "200"
+      }
+    }
     network_rules = {
       default_action      = "Allow" # @todo Set back to Deny
       bypass              = ["AzureServices", "Metrics"]
@@ -270,7 +320,7 @@ application_insights = {
 # Linux Web App
 #---------------
 linux_web_app = {
-  default = {
+  alpha = {
     name           = "app-lin"
     resource_group = "compute"
     service_plan   = "app-lin"
@@ -280,7 +330,11 @@ linux_web_app = {
       identity = "app-lin"
     }
     site_config = {
-      always_on                               = true
+      always_on = true
+      # application_stack = {
+      #   docker_image_name   = "acrhubcus01.azurecr.io/dvs-core-dcp-client-vehicle-history-dev-cus-01:1.0.0"
+      #   docker_registry_url = "https://acrhubcus01.azurecr.io"
+      # }
       container_registry_use_managed_identity = true
       cors                                    = {}
       ftps_state                              = "Disabled"
@@ -307,7 +361,7 @@ linux_web_app = {
 # Linux Function App
 #--------------------
 linux_function_app = {
-  node = {
+  alpha = {
     name           = "func-lin-node"
     resource_group = "compute"
     service_plan   = "func-lin"
@@ -341,9 +395,9 @@ linux_function_app = {
       type     = "UserAssigned"
       identity = "func-lin"
     }
-    storage_account = "func-lin"
+    storage_account = "alpha"
   },
-  java = {
+  beta = {
     name           = "func-lin-java"
     resource_group = "compute"
     service_plan   = "func-lin"
@@ -377,7 +431,7 @@ linux_function_app = {
       type     = "UserAssigned"
       identity = "func-lin"
     }
-    storage_account = "func-lin"
+    storage_account = "beta"
   },
 }
 
