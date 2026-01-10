@@ -24,15 +24,20 @@ variable "resource_group" {}
 #-----------------
 variable "virtual_network" {}
 
-#------------------
-# Private Dns Zone
-#------------------
-variable "private_dns_zone" {}
-
 #------------------------
 # User Assigned Identity
 #------------------------
 variable "user_assigned_identity" {}
+
+#----------------
+# API Management
+#----------------
+variable "api_management" {}
+
+#------------------
+# Private Dns Zone
+#------------------
+variable "private_dns_zone" {}
 
 #------------------------
 # Network Security Group    

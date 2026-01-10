@@ -30,6 +30,9 @@ resource_group = {
   security = {
     name = "rg-security"
   },
+  integration = {
+    name = "rg-integration"
+  },
 }
 
 #-----------------
@@ -66,9 +69,9 @@ virtual_network = {
   }
 }
 
-#---------------
-# User Identity
-#---------------
+#------------------------
+# User Assigned Identity
+#------------------------
 user_assigned_identity = {
   vm-lin = {
     name           = "id-vm-lin"
@@ -77,6 +80,28 @@ user_assigned_identity = {
   vm-win = {
     name           = "id-vm-win"
     resource_group = "security"
+  },
+  apim = {
+    name           = "id-apim"
+    resource_group = "integration"
+  },
+}
+
+#----------------
+# API Management
+#----------------
+api_management = {
+  alpha = {
+    name            = "apim"
+    resource_group  = "integration"
+    publisher_name  = "QuestOpsHub"
+    publisher_email = "questopshub.microsoft_gmail.com#EXT#@questopshubmicrosoftgmail.onmicrosoft.com"
+    sku_name        = "Basic_1"
+    identity = {
+      type     = "UserAssigned"
+      identity = "apim"
+    }
+    public_network_access_enabled = true
   },
 }
 

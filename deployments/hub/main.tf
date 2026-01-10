@@ -69,6 +69,60 @@ module "virtual_network" {
   )
 }
 
+#------------------------
+# User Assigned Identity
+#------------------------
+module "user_assigned_identity" {
+  source = "git::https://github.com/QuestOpsHub/terraform-azurerm-user-assigned-identity.git?ref=v1.0.0"
+
+  for_each            = var.user_assigned_identity
+  name                = "${each.value.name}-${local.resource_suffix}-${module.random_string.result}"
+  location            = var.helpers.region
+  resource_group_name = module.resource_group[each.value.resource_group].name
+
+  tags = merge(
+    local.timestamp_tag,
+    local.common_tags,
+    {
+      team  = lookup(each.value, "resource_tags", local.resource_tags).team
+      owner = lookup(each.value, "resource_tags", local.resource_tags).owner
+    }
+  )
+}
+
+#----------------
+# API Management
+#----------------
+# @todo add all supported arguments
+module "api_management" {
+  source = "git::https://github.com/QuestOpsHub/terraform-azurerm-api-management.git?ref=v1.0.0"
+
+  for_each            = var.api_management
+  name                = each.value.name
+  location            = each.value.region
+  resource_group_name = module.resource_group[each.value.resource_group].name
+  publisher_name      = each.value.publisher_name
+  publisher_email     = each.value.publisher_email
+  sku_name            = each.value.sku_name
+  min_api_version     = lookup(each.value, "min_api_version", "2019-12-01")
+
+  identity = {
+    type         = each.value.identity.type
+    identity_ids = each.value.identity.type == "UserAssigned" || each.value.identity.type == "SystemAssigned, UserAssigned" ? [module.user_assigned_identity[each.value.identity.identity].id] : null
+  }
+
+  public_network_access_enabled = lookup(each.value, "public_network_access_enabled", true)
+
+  tags = merge(
+    local.timestamp_tag,
+    local.common_tags,
+    {
+      team  = lookup(each.value, "resource_tags", local.resource_tags).team
+      owner = lookup(each.value, "resource_tags", local.resource_tags).owner
+    }
+  )
+}
+
 #------------------
 # Private Dns Zone
 #------------------
@@ -103,26 +157,7 @@ module "private_dns_zone" {
   )
 }
 
-#------------------------
-# User Assigned Identity
-#------------------------
-module "user_assigned_identity" {
-  source = "git::https://github.com/QuestOpsHub/terraform-azurerm-user-assigned-identity.git?ref=v1.0.0"
 
-  for_each            = var.user_assigned_identity
-  name                = "${each.value.name}-${local.resource_suffix}-${module.random_string.result}"
-  location            = var.helpers.region
-  resource_group_name = module.resource_group[each.value.resource_group].name
-
-  tags = merge(
-    local.timestamp_tag,
-    local.common_tags,
-    {
-      team  = lookup(each.value, "resource_tags", local.resource_tags).team
-      owner = lookup(each.value, "resource_tags", local.resource_tags).owner
-    }
-  )
-}
 
 #------------------------
 # Network Security Group

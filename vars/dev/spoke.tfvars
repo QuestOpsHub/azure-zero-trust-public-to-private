@@ -90,9 +90,9 @@ hub_spoke_peering = {
   peer2_use_remote_gateways          = false
 }
 
-#---------------
-# User Identity
-#---------------
+#------------------------
+# User Assigned Identity
+#------------------------
 user_assigned_identity = {
   app-lin = {
     name           = "id-app-lin"
