@@ -409,20 +409,12 @@ cosmosdb_account = {
     }
     automatic_failover_enabled    = true
     public_network_access_enabled = true
-    capabilities = {
-      aggregation_pipeline = {
-        name = "EnableAggregationPipeline"
-      },
-      doc_level_ttl = {
-        name = "mongoEnableDocLevelTTL"
-      },
-      mongodb_version = {
-        name = "MongoDBv3.4"
-      },
-      mongo_enable = {
-        name = "EnableMongo"
-      }
-    }
+    capabilities = [
+      "EnableAggregationPipeline",
+      "mongoEnableDocLevelTTL",
+      "MongoDBv3.4",
+      "EnableMongo"
+    ]
     backup = {
       type = "Periodic"
     }
