@@ -236,3 +236,29 @@ service_plan = {
     sku_name       = "P1v2"
   },
 }
+
+#----------------------
+# Application Insights
+#----------------------
+application_insights = {
+  "appi-app-lin" = {
+    name             = "appi-app-lin"
+    resource_group   = "app-lin"
+    application_type = "web"
+  },
+  "appi-app-win" = {
+    name             = "appi-app-win"
+    resource_group   = "app-win"
+    application_type = "web"
+  },
+  "appi-func-lin" = {
+    name             = "appi-func-lin"
+    resource_group   = "func-lin"
+    application_type = "web"
+  },
+  "appi-func-win" = {
+    name             = "appi-func-win"
+    resource_group   = "func-win"
+    application_type = "web"
+  },
+}

@@ -68,6 +68,25 @@ variable "storage_container" {}
 #--------------
 variable "service_plan" {}
 
+#----------------------
+# Application Insights
+#----------------------
+variable "application_insights" {}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # MISC
 
 variable "admin_username" {}
