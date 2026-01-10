@@ -29,6 +29,11 @@ variable "virtual_network" {}
 #------------------------
 variable "user_assigned_identity" {}
 
+#----------------------
+# Application Insights
+#----------------------
+variable "application_insights" {}
+
 #----------------
 # API Management
 #----------------

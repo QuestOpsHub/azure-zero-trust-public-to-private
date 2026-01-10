@@ -33,6 +33,9 @@ resource_group = {
   integration = {
     name = "rg-integration"
   },
+  management = {
+    name = "rg-management"
+  },
 }
 
 #-----------------
@@ -87,6 +90,17 @@ user_assigned_identity = {
   },
 }
 
+#----------------------
+# Application Insights
+#----------------------
+application_insights = {
+  alpha = {
+    name             = "appi"
+    resource_group   = "management"
+    application_type = "web"
+  }
+}
+
 #----------------
 # API Management
 #----------------
@@ -101,7 +115,17 @@ api_management = {
       type     = "UserAssigned"
       identity = "apim"
     }
+    security = {
+      frontend_ssl30_enabled = true
+    }
     public_network_access_enabled = true
+    identifier                    = "applicationinsights"
+    api_management_logger_name    = "apim-logger"
+    sampling_percentage           = 100.0
+    always_log_errors             = true
+    log_client_ip                 = true
+    verbosity                     = "information"
+    http_correlation_protocol     = "W3C"
   },
 }
 

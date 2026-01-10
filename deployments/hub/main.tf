@@ -90,6 +90,38 @@ module "user_assigned_identity" {
   )
 }
 
+#----------------------
+# Application Insights
+#----------------------
+module "application_insights" {
+  source = "git::https://github.com/QuestOpsHub/terraform-azurerm-application-insights.git?ref=v1.0.1"
+
+  for_each                              = var.application_insights
+  name                                  = "${each.value.name}-${local.resource_suffix}-${module.random_string.result}"
+  location                              = var.helpers.region
+  resource_group_name                   = module.resource_group[each.value.resource_group].name
+  application_type                      = each.value.application_type
+  daily_data_cap_in_gb                  = lookup(each.value, "daily_data_cap_in_gb", 100)
+  daily_data_cap_notifications_disabled = lookup(each.value, "daily_data_cap_notifications_disabled", false)
+  retention_in_days                     = lookup(each.value, "retention_in_days", 90)
+  sampling_percentage                   = lookup(each.value, "sampling_percentage", 100)
+  disable_ip_masking                    = lookup(each.value, "disable_ip_masking", false)
+  workspace_id                          = lookup(each.value, "workspace_id", null)
+  local_authentication_disabled         = lookup(each.value, "local_authentication_disabled", false)
+  internet_ingestion_enabled            = lookup(each.value, "internet_ingestion_enabled", true)
+  internet_query_enabled                = lookup(each.value, "internet_query_enabled", true)
+  force_customer_storage_for_profiler   = lookup(each.value, "force_customer_storage_for_profiler", false)
+
+  tags = merge(
+    local.timestamp_tag,
+    local.common_tags,
+    {
+      team  = lookup(each.value, "resource_tags", local.resource_tags).team
+      owner = lookup(each.value, "resource_tags", local.resource_tags).owner
+    }
+  )
+}
+
 #----------------
 # API Management
 #----------------
@@ -111,7 +143,18 @@ module "api_management" {
     identity_ids = each.value.identity.type == "UserAssigned" || each.value.identity.type == "SystemAssigned, UserAssigned" ? [module.user_assigned_identity[each.value.identity.identity].id] : null
   }
 
+  security                      = lookup(each.value, "security", {})
   public_network_access_enabled = lookup(each.value, "public_network_access_enabled", true)
+  environment                   = var.helpers.region
+  api_management_logger_name    = each.value.api_management_logger_name
+  resource_id                   = module.application_insights["alpha"].id
+  instrumentation_key           = module.application_insights["alpha"].instrumentation_key
+  identifier                    = each.value.identifier
+  sampling_percentage           = each.value.sampling_percentage
+  always_log_errors             = each.value.always_log_errors
+  log_client_ip                 = each.value.log_client_ip
+  verbosity                     = each.value.verbosity
+  http_correlation_protocol     = each.value.http_correlation_protocol
 
   tags = merge(
     local.timestamp_tag,
@@ -156,8 +199,6 @@ module "private_dns_zone" {
     }
   )
 }
-
-
 
 #------------------------
 # Network Security Group
@@ -357,7 +398,7 @@ locals {
   }
   custom_data = {
     alpha = {
-      custom_data = filebase64("${path.module}/mountDisks.sh")
+      custom_data = filebase64("${path.module}/scripts/mountDisks.sh")
     }
   }
 }
