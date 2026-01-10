@@ -351,7 +351,7 @@ module "service_plan" {
 # Application Insights
 #----------------------
 module "application_insights" {
-  source = "git::https://github.com/QuestOpsHub/terraform-azurerm-application-insights.git?ref=v1.0.0"
+  source = "git::https://github.com/QuestOpsHub/terraform-azurerm-application-insights.git?ref=v1.0.1"
 
   for_each                              = var.application_insights
   name                                  = "${each.value.name}-${local.resource_suffix}-${module.random_string.result}"
