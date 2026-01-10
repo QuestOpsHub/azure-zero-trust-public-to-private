@@ -323,7 +323,7 @@ module "storage_container" {
 # Service Plan
 #--------------
 module "service_plan" {
-  source = "git::https://github.com/QuestOpsHub/terraform-azurerm-service-plan.git?ref=v1.0.1"
+  source = "git::https://github.com/QuestOpsHub/terraform-azurerm-service-plan.git?ref=v1.0.0"
 
   for_each                     = var.service_plan
   name                         = "${each.value.name}-${local.resource_suffix}-${module.random_string.result}"
