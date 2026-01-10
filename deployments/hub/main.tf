@@ -99,7 +99,7 @@ module "api_management" {
 
   for_each            = var.api_management
   name                = each.value.name
-  location            = each.value.region
+  location            = var.helpers.region
   resource_group_name = module.resource_group[each.value.resource_group].name
   publisher_name      = each.value.publisher_name
   publisher_email     = each.value.publisher_email
