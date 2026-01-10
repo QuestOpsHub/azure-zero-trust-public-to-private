@@ -385,9 +385,9 @@ linux_function_app = {
 # CosmosDB Account
 #------------------
 cosmosdb_account = {
-  "alpha" = {
+  alpha = {
     name           = "cosmon"
-    resource_group = "cosmosdb"
+    resource_group = "database"
     offer_type     = "Standard"
     kind           = "MongoDB"
     consistency_policy = {
