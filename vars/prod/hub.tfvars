@@ -21,14 +21,23 @@ helpers = {
 # Resource Group
 #----------------
 resource_group = {
-  network = {
-    name = "rg-network"
+  ai = {
+    name = "rg-ai"
+  },
+  analytics = {
+    name = "rg-analytics"
   },
   compute = {
     name = "rg-compute"
   },
-  security = {
-    name = "rg-security"
+  container = {
+    name = "rg-container"
+  },
+  database = {
+    name = "rg-database"
+  },
+  devops = {
+    name = "rg-devops"
   },
   integration = {
     name = "rg-integration"
@@ -36,6 +45,15 @@ resource_group = {
   management = {
     name = "rg-management"
   },
+  network = {
+    name = "rg-network"
+  },
+  security = {
+    name = "rg-security"
+  },
+  storage = {
+    name = "rg-storage"
+  }
 }
 
 #-----------------
@@ -86,7 +104,7 @@ user_assigned_identity = {
   },
   apim = {
     name           = "id-apim"
-    resource_group = "integration"
+    resource_group = "security"
   },
 }
 

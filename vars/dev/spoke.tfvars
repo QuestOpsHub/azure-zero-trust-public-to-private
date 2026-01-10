@@ -21,38 +21,38 @@ helpers = {
 # Resource Group
 #----------------
 resource_group = {
-  network = {
-    name = "rg-network"
-  },
-  compute = {
-    name = "rg-compute"
-  },
-  security = {
-    name = "rg-security"
-  },
-  database = {
-    name = "rg-database"
-  },
-  management = {
-    name = "rg-management"
-  },
-  storage = {
-    name = "rg-storage"
-  },
-  integration = {
-    name = "rg-integration"
-  },
-  devops = {
-    name = "rg-devops"
-  },
-  container = {
-    name = "rg-container"
+  ai = {
+    name = "rg-ai"
   },
   analytics = {
     name = "rg-analytics"
   },
-  ai = {
-    name = "rg-ai"
+  compute = {
+    name = "rg-compute"
+  },
+  container = {
+    name = "rg-container"
+  },
+  database = {
+    name = "rg-database"
+  },
+  devops = {
+    name = "rg-devops"
+  },
+  integration = {
+    name = "rg-integration"
+  },
+  management = {
+    name = "rg-management"
+  },
+  network = {
+    name = "rg-network"
+  },
+  security = {
+    name = "rg-security"
+  },
+  storage = {
+    name = "rg-storage"
   }
 }
 
