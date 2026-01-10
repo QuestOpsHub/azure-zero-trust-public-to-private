@@ -27,13 +27,16 @@ resource_group = {
   compute = {
     name = "rg-compute"
   },
+  security = {
+    name = "rg-security"
+  },
 }
 
 #-----------------
 # Virtual Network
 #-----------------
 virtual_network = {
-  default = {
+  alpha = {
     name           = "vnet"
     resource_group = "network"
     address_space  = ["30.0.0.0/16"]
@@ -69,11 +72,11 @@ virtual_network = {
 user_assigned_identity = {
   vm-lin = {
     name           = "id-vm-lin"
-    resource_group = "compute"
+    resource_group = "security"
   },
   vm-win = {
     name           = "id-vm-win"
-    resource_group = "compute"
+    resource_group = "security"
   },
 }
 
@@ -87,8 +90,8 @@ private_dns_zone = {
     resource_group = "network"
     virtual_network_ids = [
       {
-        name    = "dns-vnet-qoh-hub-prod-cus-4k6f-link"
-        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-network-qoh-hub-prod-cus-4k6f/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-prod-cus-4k6f"
+        name    = "dns-vnet-qoh-hub-jumpbox-cus-link"
+        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-qoh-hub-jumpbox-cus/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-jumpbox-cus"
       }
     ]
   },
@@ -97,8 +100,8 @@ private_dns_zone = {
     resource_group = "network"
     virtual_network_ids = [
       {
-        name    = "dns-vnet-qoh-hub-prod-cus-4k6f-link"
-        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-network-qoh-hub-prod-cus-4k6f/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-prod-cus-4k6f"
+        name    = "dns-vnet-qoh-hub-jumpbox-cus-link"
+        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-qoh-hub-jumpbox-cus/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-jumpbox-cus"
       }
     ]
   },
@@ -107,8 +110,8 @@ private_dns_zone = {
     resource_group = "network"
     virtual_network_ids = [
       {
-        name    = "dns-vnet-qoh-hub-prod-cus-4k6f-link"
-        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-network-qoh-hub-prod-cus-4k6f/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-prod-cus-4k6f"
+        name    = "dns-vnet-qoh-hub-jumpbox-cus-link"
+        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-qoh-hub-jumpbox-cus/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-jumpbox-cus"
       }
     ]
   },
@@ -117,8 +120,8 @@ private_dns_zone = {
     resource_group = "network"
     virtual_network_ids = [
       {
-        name    = "dns-vnet-qoh-hub-prod-cus-4k6f-link"
-        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-network-qoh-hub-prod-cus-4k6f/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-prod-cus-4k6f"
+        name    = "dns-vnet-qoh-hub-jumpbox-cus-link"
+        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-qoh-hub-jumpbox-cus/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-jumpbox-cus"
       }
     ]
   },
@@ -127,8 +130,8 @@ private_dns_zone = {
     resource_group = "network"
     virtual_network_ids = [
       {
-        name    = "dns-vnet-qoh-hub-prod-cus-4k6f-link"
-        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-network-qoh-hub-prod-cus-4k6f/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-prod-cus-4k6f"
+        name    = "dns-vnet-qoh-hub-jumpbox-cus-link"
+        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-qoh-hub-jumpbox-cus/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-jumpbox-cus"
       }
     ]
   },
@@ -137,8 +140,8 @@ private_dns_zone = {
     resource_group = "network"
     virtual_network_ids = [
       {
-        name    = "dns-vnet-qoh-hub-prod-cus-4k6f-link"
-        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-network-qoh-hub-prod-cus-4k6f/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-prod-cus-4k6f"
+        name    = "dns-vnet-qoh-hub-jumpbox-cus-link"
+        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-qoh-hub-jumpbox-cus/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-jumpbox-cus"
       }
     ]
   },
@@ -147,8 +150,8 @@ private_dns_zone = {
     resource_group = "network"
     virtual_network_ids = [
       {
-        name    = "dns-vnet-qoh-hub-prod-cus-4k6f-link"
-        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-network-qoh-hub-prod-cus-4k6f/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-prod-cus-4k6f"
+        name    = "dns-vnet-qoh-hub-jumpbox-cus-link"
+        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-qoh-hub-jumpbox-cus/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-jumpbox-cus"
       }
     ]
   },
@@ -158,11 +161,10 @@ private_dns_zone = {
 # Network Security Group
 #------------------------
 network_security_group = {
-  # Bastion
   bastion = {
     name            = "nsg-AzureBastionSubnet"
     resource_group  = "network"
-    virtual_network = "default"
+    virtual_network = "alpha"
     subnet          = "bastion"
     inbound_rules = [
       {
@@ -257,10 +259,10 @@ network_security_group = {
       }
     ]
   },
-  default = {
-    name            = "nsg-default"
+  alpha = {
+    name            = "nsg"
     resource_group  = "network"
-    virtual_network = "default"
+    virtual_network = "alpha"
     subnet          = "default"
     inbound_rules = [
       {
@@ -328,7 +330,7 @@ network_security_group = {
 # Public IP
 #-----------
 public_ip = {
-  bastion = {
+  alpha = {
     name              = "ip-bas"
     resource_group    = "network"
     allocation_method = "Static"
@@ -341,7 +343,7 @@ public_ip = {
 # Bastion Host
 #--------------
 bastion_host = {
-  default = {
+  alpha = {
     name           = "bas"
     resource_group = "compute"
     sku            = "Standard"
@@ -356,7 +358,7 @@ bastion_host = {
 # Linux Virtual Machine
 #-----------------------
 linux_virtual_machine = {
-  jumpbox = {
+  alpha = {
     name           = "vm-lin-jb"
     resource_group = "compute"
     license_type   = null
@@ -382,7 +384,7 @@ linux_virtual_machine = {
     }
     user_data       = null
     zone            = 1
-    virtual_network = "default"
+    virtual_network = "alpha"
     subnet          = "default"
     ip_configuration = {
       name                          = "linuxVirtualMachineConfig"
@@ -390,7 +392,56 @@ linux_virtual_machine = {
       private_ip_address_allocation = "Dynamic"
       primary                       = true
     }
-    managed_disks = {}
-    vm_extensions = {}
+    managed_disks = {
+      "disk01" = {
+        storage_account_type = "Standard_LRS"
+        create_option        = "Empty"
+        disk_size_gb         = "10"
+        edge_zone            = null
+        zone                 = 1
+        lun                  = "10"
+        caching              = "ReadWrite"
+      },
+      "disk02" = {
+        storage_account_type = "Standard_LRS"
+        create_option        = "Empty"
+        disk_size_gb         = "10"
+        edge_zone            = null
+        zone                 = 1
+        lun                  = "20"
+        caching              = "ReadWrite"
+      },
+      "disk03" = {
+        storage_account_type = "Standard_LRS"
+        create_option        = "Empty"
+        disk_size_gb         = "10"
+        edge_zone            = null
+        zone                 = 1
+        lun                  = "30"
+        caching              = "ReadWrite"
+      },
+      "disk04" = {
+        storage_account_type = "Standard_LRS"
+        create_option        = "Empty"
+        disk_size_gb         = "10"
+        edge_zone            = null
+        zone                 = 1
+        lun                  = "40"
+        caching              = "ReadWrite"
+      },
+    }
+    vm_extensions = {
+      "Nginx" = {
+        name                 = "Nginx"
+        publisher            = "Microsoft.Azure.Extensions"
+        type                 = "CustomScript"
+        type_handler_version = "2.0"
+        settings             = <<SETTINGS
+{
+ "commandToExecute": "sudo apt-get update && sudo apt-get install nginx -y && echo \"<html><body style='background-color:blue'><h1>Hello World from $(hostname)</h1></body></html>\" > /var/www/html/index.html && sudo systemctl restart nginx"
+}
+SETTINGS
+      }
+    }
   },
 }

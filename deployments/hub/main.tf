@@ -228,11 +228,15 @@ module "bastion_host" {
 #-----------------------
 locals {
   linux_virtual_machine_ip_configuration = {
-    jumpbox = {
-      subnet_id = module.virtual_network["default"].subnets["default"].id
+    alpha = {
+      subnet_id = module.virtual_network["alpha"].subnets["default"].id
     },
   }
-  custom_data = {}
+  custom_data = {
+    alpha = {
+      custom_data = filebase64("${path.module}/mountDisks.sh")
+    }
+  }
 }
 
 module "linux_virtual_machine" {
