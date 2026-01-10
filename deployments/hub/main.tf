@@ -127,7 +127,7 @@ module "application_insights" {
 #----------------
 # @todo add all supported arguments
 module "api_management" {
-  source = "git::https://github.com/QuestOpsHub/terraform-azurerm-api-management.git?ref=v1.0.0"
+  source = "git::https://github.com/QuestOpsHub/terraform-azurerm-api-management.git?ref=v1.0.1"
 
   for_each            = var.api_management
   name                = each.value.name
