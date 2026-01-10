@@ -134,12 +134,12 @@ key_vault_secret = {
   primary = {
     name      = "primary"
     value     = "primary"
-    key_vault = "primary"
+    key_vault = "default"
   }
   secondary = {
     name      = "secondary"
     value     = "secondary"
-    key_vault = "primary"
+    key_vault = "default"
   }
 }
 
