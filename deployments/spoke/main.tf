@@ -308,11 +308,10 @@ module "storage_account" {
 # Storage Container
 #-------------------
 module "storage_container" {
-  source = "git::https://github.com/QuestOpsHub/terraform-azurerm-storage-container.git?ref=v1.0.0"
+  source = "git::https://github.com/QuestOpsHub/terraform-azurerm-storage-container.git?ref=v1.0.1"
 
-  for_each = var.storage_container
-  name     = each.value.name
-  #storage_account_name = module.storage_account[each.value.storage_account].name # @todo remove this property is deprecated in favour of storage_account_id
+  for_each                          = var.storage_container
+  name                              = each.value.name
   storage_account_id                = module.storage_account[each.value.storage_account].id
   container_access_type             = lookup(each.value, "container_access_type", "private")
   default_encryption_scope          = lookup(each.value, "default_encryption_scope", null)
