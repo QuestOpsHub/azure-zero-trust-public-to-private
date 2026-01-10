@@ -341,7 +341,7 @@ linux_function_app = {
       type     = "UserAssigned"
       identity = "func-lin"
     }
-    storage_account = "st-func-lin"
+    storage_account = "func-lin"
   },
   java = {
     name           = "func-lin-java"
@@ -377,6 +377,6 @@ linux_function_app = {
       type     = "UserAssigned"
       identity = "func-lin"
     }
-    storage_account = "st-func-lin"
+    storage_account = "func-lin"
   },
 }
