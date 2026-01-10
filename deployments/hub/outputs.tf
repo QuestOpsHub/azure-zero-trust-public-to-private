@@ -26,11 +26,25 @@ output "private_dns_zone" {
   value = module.private_dns_zone
 }
 
-#---------------
-# User Identity
-#---------------
+#------------------------
+# User Assigned Identity
+#------------------------
 output "user_assigned_identity" {
   value = module.user_assigned_identity
+}
+
+#-----------
+# Key Vault
+#-----------
+output "key_vault" {
+  value = module.key_vault
+}
+
+#-----------
+# Public IP
+#-----------
+output "public_ip" {
+  value = module.public_ip
 }
 
 #--------------
