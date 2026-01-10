@@ -327,6 +327,46 @@ network_security_group = {
 }
 
 #-----------
+# Key Vault
+#-----------
+key_vault = {
+  alpha = {
+    name                            = "kv"
+    resource_group                  = "security"
+    sku_name                        = "standard"
+    access_policy                   = {}
+    enabled_for_deployment          = false
+    enabled_for_template_deployment = true
+    enable_rbac_authorization       = false
+    network_acls = {
+      default_action      = "Allow" # @todo Set back to Deny
+      bypass              = "AzureServices"
+      ip_rules            = []
+      private_link_access = {}
+    }
+    purge_protection_enabled      = true
+    public_network_access_enabled = true
+    soft_delete_retention_days    = 90
+  },
+}
+
+#------------------
+# Key Vault Secret
+#------------------
+key_vault_secret = {
+  alpha = {
+    name      = "alpha"
+    value     = "alpha"
+    key_vault = "alpha"
+  }
+  beta = {
+    name      = "beta"
+    value     = "beta"
+    key_vault = "alpha"
+  }
+}
+
+#-----------
 # Public IP
 #-----------
 public_ip = {

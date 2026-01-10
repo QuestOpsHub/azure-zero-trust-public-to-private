@@ -40,6 +40,16 @@ variable "user_assigned_identity" {}
 variable "network_security_group" {}
 
 #-----------
+# Key Vault
+#-----------
+variable "key_vault" {}
+
+#------------------
+# Key Vault Secret
+#------------------
+variable "key_vault_secret" {}
+
+#-----------
 # Public IP
 #-----------
 variable "public_ip" {}
