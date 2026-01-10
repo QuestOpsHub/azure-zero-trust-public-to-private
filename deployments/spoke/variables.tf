@@ -48,6 +48,11 @@ variable "user_assigned_identity" {}
 #-----------
 variable "key_vault" {}
 
+#------------------
+# Key Vault Secret
+#------------------
+variable "key_vault_secret" {}
+
 #-----------------
 # Storage Account
 #-----------------

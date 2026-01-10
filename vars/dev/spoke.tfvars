@@ -127,6 +127,22 @@ key_vault = {
   },
 }
 
+#------------------
+# Key Vault Secret
+#------------------
+key_vault_secret = {
+  primary = {
+    name      = "primary"
+    value     = "primary"
+    key_vault = "primary"
+  }
+  secondary = {
+    name      = "secondary"
+    value     = "secondary"
+    key_vault = "primary"
+  }
+}
+
 #-----------------
 # Storage Account
 #-----------------

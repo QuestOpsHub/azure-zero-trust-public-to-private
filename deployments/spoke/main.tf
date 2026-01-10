@@ -198,6 +198,31 @@ module "key_vault" {
   )
 }
 
+#------------------
+# Key Vault Secret
+#------------------
+module "key_vault_secret" {
+  depends_on = [module.key_vault]
+  source     = "git::https://github.com/QuestOpsHub/QuestOpsHub-terraform-azure-modules.git//keyVaultSecret?ref=main"
+
+  for_each        = var.key_vault_secret
+  name            = each.value.name
+  value           = each.value.value
+  key_vault_id    = module.key_vault[each.value.key_vault].id
+  content_type    = lookup(each.value, "content_type", null)
+  not_before_date = lookup(each.value, "not_before_date", null)
+  expiration_date = lookup(each.value, "expiration_date", null)
+
+  tags = merge(
+    local.timestamp_tag,
+    local.common_tags,
+    {
+      team  = lookup(each.value, "resource_tags", local.resource_tags).team
+      owner = lookup(each.value, "resource_tags", local.resource_tags).owner
+    }
+  )
+}
+
 #-----------------
 # Storage Account
 #-----------------
