@@ -186,7 +186,7 @@ module "public_ip" {
 #--------------
 locals {
   bastion_host_ip_configuration = {
-    default = {
+    alpha = {
       subnet_id            = module.virtual_network["alpha"].subnets["bastion"].id
       public_ip_address_id = module.public_ip["alpha"].id
     }
