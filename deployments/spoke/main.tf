@@ -590,7 +590,7 @@ module "linux_function_app" {
 # CosmosDB Account
 #------------------
 module "cosmosdb_account" {
-  source = "git::https://github.com/QuestOpsHub/terraform-azurerm-cosmosdb-account.git?ref=v1.0.0"
+  source = "git::https://github.com/QuestOpsHub/terraform-azurerm-cosmosdb-account.git?ref=v1.0.1"
 
   for_each                              = var.cosmosdb_account
   name                                  = "${each.value.name}-${local.resource_suffix}-${module.random_string.result}"
