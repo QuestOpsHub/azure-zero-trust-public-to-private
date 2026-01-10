@@ -250,11 +250,11 @@ storage_account = {
 # Storage Container
 #-------------------
 storage_container = {
-  default-func-lin = {
+  default-st-alpha = {
     name            = "default"
     storage_account = "alpha"
   },
-  default-func-win = {
+  default-st-beta = {
     name            = "default"
     storage_account = "beta"
   },
