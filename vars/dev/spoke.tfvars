@@ -78,7 +78,7 @@ virtual_network = {
 # Hub <-> Spoke Virtual Network Peering
 #---------------------------------------
 hub_spoke_peering = {
-  hub_vnet                           = "default"
+  hub_vnet                           = "alpha"
   spoke_vnet                         = "alpha"
   peer1_allow_virtual_network_access = true
   peer1_allow_forwarded_traffic      = true
