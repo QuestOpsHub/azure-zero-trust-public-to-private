@@ -36,6 +36,24 @@ resource_group = {
   management = {
     name = "rg-management"
   },
+  storage = {
+    name = "rg-storage"
+  },
+  integration = {
+    name = "rg-integration"
+  },
+  devops = {
+    name = "rg-devops"
+  },
+  container = {
+    name = "rg-container"
+  },
+  analytics = {
+    name = "rg-analytics"
+  },
+  ai = {
+    name = "rg-ai"
+  }
 }
 
 #-----------------
@@ -78,31 +96,31 @@ hub_spoke_peering = {
 user_assigned_identity = {
   app-lin = {
     name           = "id-app-lin"
-    resource_group = "compute"
+    resource_group = "security"
   },
   app-win = {
     name           = "id-app-win"
-    resource_group = "compute"
+    resource_group = "security"
   },
   func-lin = {
     name           = "id-func-lin"
-    resource_group = "compute"
+    resource_group = "security"
   },
   func-win = {
     name           = "id-func-win"
-    resource_group = "compute"
+    resource_group = "security"
   },
   st-func-lin = {
     name           = "id-st-func-lin"
-    resource_group = "compute"
+    resource_group = "security"
   },
   st-func-win = {
     name           = "id-st-func-win"
-    resource_group = "compute"
+    resource_group = "security"
   },
   cosmon = {
     name           = "id-cosmon"
-    resource_group = "database"
+    resource_group = "security"
   },
 }
 
@@ -153,7 +171,7 @@ storage_account = {
   # Storage Account used by the Linux Function App(s)
   alpha = {
     name                     = "st-func-lin"
-    resource_group           = "compute"
+    resource_group           = "storage"
     account_tier             = "Standard"
     account_replication_type = "LRS"
     is_hns_enabled           = false
@@ -200,7 +218,7 @@ storage_account = {
   # Storage Account used by the Windows Function App(s)
   beta = {
     name                     = "st-func-win"
-    resource_group           = "compute"
+    resource_group           = "storage"
     account_tier             = "Standard"
     account_replication_type = "LRS"
     is_hns_enabled           = false
