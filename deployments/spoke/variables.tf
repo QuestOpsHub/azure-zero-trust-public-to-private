@@ -78,8 +78,10 @@ variable "application_insights" {}
 #---------------
 variable "linux_web_app" {}
 
-
-
+#--------------------
+# Linux Function App
+#--------------------
+variable "linux_function_app" {}
 
 
 

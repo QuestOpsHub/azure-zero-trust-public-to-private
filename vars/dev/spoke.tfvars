@@ -302,3 +302,81 @@ linux_web_app = {
     }
   },
 }
+
+#--------------------
+# Linux Function App
+#--------------------
+linux_function_app = {
+  node = {
+    name           = "func-lin-node"
+    resource_group = "compute"
+    service_plan   = "func-lin"
+    site_config = {
+      always_on = true
+      application_stack = {
+        node_version = "18"
+      }
+      cors                              = {}
+      ftps_state                        = "Disabled"
+      health_check_path                 = "/remoteEntry.js"
+      health_check_eviction_time_in_min = 5
+      http2_enabled                     = true
+      ip_restriction = {
+        all_traffic = {
+          action     = "Allow"
+          ip_address = "0.0.0.0/0"
+        }
+      }
+      load_balancing_mode = "WeightedRoundRobin"
+      minimum_tls_version = "1.2"
+      scm_ip_restriction = {
+        all_traffic = {
+          action     = "Allow"
+          ip_address = "0.0.0.0/0"
+        }
+      }
+    }
+    app_settings = {}
+    identity = {
+      type     = "UserAssigned"
+      identity = "func-lin"
+    }
+    storage_account = "st-func-lin"
+  },
+  java = {
+    name           = "func-lin-java"
+    resource_group = "compute"
+    service_plan   = "func-lin"
+    site_config = {
+      always_on = true
+      application_stack = {
+        java_version = "17"
+      }
+      cors                              = {}
+      ftps_state                        = "Disabled"
+      health_check_path                 = "/api/health"
+      health_check_eviction_time_in_min = 5
+      http2_enabled                     = true
+      ip_restriction = {
+        all_traffic = {
+          action     = "Allow"
+          ip_address = "0.0.0.0/0"
+        }
+      }
+      load_balancing_mode = "WeightedRoundRobin"
+      minimum_tls_version = "1.2"
+      scm_ip_restriction = {
+        all_traffic = {
+          action     = "Allow"
+          ip_address = "0.0.0.0/0"
+        }
+      }
+    }
+    app_settings = {}
+    identity = {
+      type     = "UserAssigned"
+      identity = "func-lin"
+    }
+    storage_account = "st-func-lin"
+  },
+}
