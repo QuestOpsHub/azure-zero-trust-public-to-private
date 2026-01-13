@@ -152,16 +152,7 @@ api_management = {
 #------------------
 # @todo Update `virtual_network_ids` after the Virtual Network is created.
 private_dns_zone = {
-  sqlServer = {
-    name           = "privatelink.database.windows.net"
-    resource_group = "network"
-    virtual_network_ids = [
-      {
-        name    = "dns-vnet-qoh-hub-jumpbox-cus-link"
-        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-qoh-hub-jumpbox-cus/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-jumpbox-cus"
-      }
-    ]
-  },
+  # Storage
   blob = {
     name           = "privatelink.blob.core.windows.net"
     resource_group = "network"
@@ -172,6 +163,58 @@ private_dns_zone = {
       }
     ]
   },
+  table = {
+    name           = "privatelink.table.core.windows.net"
+    resource_group = "network"
+    virtual_network_ids = [
+      {
+        name    = "dns-vnet-qoh-hub-jumpbox-cus-link"
+        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-qoh-hub-jumpbox-cus/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-jumpbox-cus"
+      }
+    ]
+  },
+  queue = {
+    name           = "privatelink.queue.core.windows.net"
+    resource_group = "network"
+    virtual_network_ids = [
+      {
+        name    = "dns-vnet-qoh-hub-jumpbox-cus-link"
+        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-qoh-hub-jumpbox-cus/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-jumpbox-cus"
+      }
+    ]
+  },
+  file = {
+    name           = "privatelink.file.core.windows.net"
+    resource_group = "network"
+    virtual_network_ids = [
+      {
+        name    = "dns-vnet-qoh-hub-jumpbox-cus-link"
+        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-qoh-hub-jumpbox-cus/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-jumpbox-cus"
+      }
+    ]
+  },
+  web = {
+    name           = "privatelink.web.core.windows.net"
+    resource_group = "network"
+    virtual_network_ids = [
+      {
+        name    = "dns-vnet-qoh-hub-jumpbox-cus-link"
+        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-qoh-hub-jumpbox-cus/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-jumpbox-cus"
+      }
+    ]
+  },
+  # Web
+  sites = {
+    name           = "privatelink.azurewebsites.net" # Azure Web Apps / Azure Function Apps
+    resource_group = "network"
+    virtual_network_ids = [
+      {
+        name    = "dns-vnet-qoh-hub-jumpbox-cus-link"
+        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-qoh-hub-jumpbox-cus/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-jumpbox-cus"
+      }
+    ]
+  },
+  # Security
   vault = {
     name           = "privatelink.vaultcore.azure.net"
     resource_group = "network"
@@ -182,8 +225,9 @@ private_dns_zone = {
       }
     ]
   },
-  registry = {
-    name           = "privatelink.azurecr.io"
+  # Databases
+  sqlServer = {
+    name           = "privatelink.database.windows.net"
     resource_group = "network"
     virtual_network_ids = [
       {
@@ -192,8 +236,18 @@ private_dns_zone = {
       }
     ]
   },
-  dataFactory = {
-    name           = "privatelink.datafactory.azure.net"
+  Sql = {
+    name           = "privatelink.documents.azure.com"
+    resource_group = "network"
+    virtual_network_ids = [
+      {
+        name    = "dns-vnet-qoh-hub-jumpbox-cus-link"
+        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-qoh-hub-jumpbox-cus/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-jumpbox-cus"
+      }
+    ]
+  },
+  managedInstance = {
+    name           = "privatelink.managedInstance.windows.net"
     resource_group = "network"
     virtual_network_ids = [
       {
@@ -212,8 +266,30 @@ private_dns_zone = {
       }
     ]
   },
-  Sql = {
-    name           = "privatelink.documents.azure.com"
+  mysqlServer = {
+    name           = "privatelink.mysql.database.azure.com"
+    resource_group = "network"
+    virtual_network_ids = [
+      {
+        name    = "dns-vnet-qoh-hub-jumpbox-cus-link"
+        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-qoh-hub-jumpbox-cus/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-jumpbox-cus"
+      }
+    ]
+  },
+  # Containers
+  registry = {
+    name           = "privatelink.azurecr.io"
+    resource_group = "network"
+    virtual_network_ids = [
+      {
+        name    = "dns-vnet-qoh-hub-jumpbox-cus-link"
+        vnet_id = "/subscriptions/ba143abd-03c0-43fc-bb1f-5bf74803b418/resourceGroups/rg-qoh-hub-jumpbox-cus/providers/Microsoft.Network/virtualNetworks/vnet-qoh-hub-jumpbox-cus"
+      }
+    ]
+  },
+  # Analytics
+  dataFactory = {
+    name           = "privatelink.datafactory.azure.net"
     resource_group = "network"
     virtual_network_ids = [
       {

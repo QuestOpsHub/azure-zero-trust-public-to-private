@@ -640,3 +640,44 @@ module "cosmosdb_account" {
     }
   )
 }
+
+#-------------------
+# Private End Point
+#-------------------
+locals {
+  private_dns_zone_group = {
+    cosmon-alpha = {
+      name                 = data.terraform_remote_state.hub.outputs.private_dns_zone["Sql"].name
+      private_dns_zone_ids = [data.terraform_remote_state.hub.outputs.private_dns_zone["Sql"].id]
+    },
+  }
+  private_service_connection = {
+    cosmon-alpha = {
+      name                           = "${module.cosmosdb_account["alpha"].name}-privateserviceconnection"
+      private_connection_resource_id = module.cosmosdb_account["alpha"].id
+    },
+  }
+}
+
+module "private_endpoint" {
+  source = "git::https://github.com/QuestOpsHub/QuestOpsHub-terraform-azure-modules.git//privateEndPoint?ref=main"
+
+  for_each                      = var.private_endpoint
+  name                          = "${each.value.name}-${local.resource_suffix}-${module.random_string.result}"
+  resource_group_name           = module.resource_group[each.value.resource_group].name
+  location                      = var.helpers.location
+  subnet_id                     = module.virtual_network["network"].subnets["default"].id
+  custom_network_interface_name = lookup(each.value, "custom_network_interface_name", null)
+  private_dns_zone_group        = merge(lookup(each.value, "private_dns_zone_group", {}), local.private_dns_zone_group[each.key])
+  private_service_connection    = merge(lookup(each.value, "private_service_connection", {}), local.private_service_connection[each.key])
+  ip_configuration              = lookup(each.value, "ip_configuration", {})
+
+  tags = merge(
+    local.timestamp_tag,
+    local.common_tags,
+    {
+      team  = lookup(each.value, "resource_tags", local.resource_tags).team
+      owner = lookup(each.value, "resource_tags", local.resource_tags).owner
+    }
+  )
+}

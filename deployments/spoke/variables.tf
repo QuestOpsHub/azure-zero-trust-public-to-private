@@ -88,15 +88,14 @@ variable "linux_function_app" {}
 #------------------
 variable "cosmosdb_account" {}
 
+#-------------------
+# Private End Point
+#-------------------
+variable "private_endpoint" {}
 
-
-
-
-
-
-
+#------
 # MISC
-
+#------
 variable "admin_username" {}
 
 variable "admin_password" {}

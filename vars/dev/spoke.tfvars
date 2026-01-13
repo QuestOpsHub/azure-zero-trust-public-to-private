@@ -496,3 +496,53 @@ cosmosdb_account = {
     }
   },
 }
+
+#-------------------
+# Private End Point
+#-------------------
+private_endpoint = {
+  cosmon-alpha = {
+    name                   = "pep-cosmon"
+    resource_group         = "network"
+    private_dns_zone_group = {}
+    private_service_connection = {
+      is_manual_connection              = false
+      private_connection_resource_alias = null
+      subresource_names                 = ["Sql"]
+      request_message                   = "PL"
+    }
+  },
+  st-alpha = {
+    name                   = "pep-st"
+    resource_group         = "network"
+    private_dns_zone_group = {}
+    private_service_connection = {
+      is_manual_connection              = false
+      private_connection_resource_alias = null
+      subresource_names                 = ["blob"]
+      request_message                   = "PL"
+    }
+  },
+  st-beta = {
+    name                   = "pep-st"
+    resource_group         = "network"
+    private_dns_zone_group = {}
+    private_service_connection = {
+      is_manual_connection              = false
+      private_connection_resource_alias = null
+      subresource_names                 = ["blob"]
+      request_message                   = "PL"
+    }
+  },
+  app-alpha = {
+    name                   = "pep-st"
+    resource_group         = "network"
+    private_dns_zone_group = {}
+    private_service_connection = {
+      is_manual_connection              = false
+      private_connection_resource_alias = null
+      subresource_names                 = ["blob"]
+      request_message                   = "PL"
+    }
+  },
+}
