@@ -130,7 +130,7 @@ module "api_management" {
   source = "git::https://github.com/QuestOpsHub/terraform-azurerm-api-management.git?ref=v1.0.1"
 
   for_each            = var.api_management
-  name                = each.value.name
+  name                = "${each.value.name}-${local.resource_suffix}-${module.random_string.result}"
   location            = var.helpers.region
   resource_group_name = module.resource_group[each.value.resource_group].name
   publisher_name      = each.value.publisher_name
