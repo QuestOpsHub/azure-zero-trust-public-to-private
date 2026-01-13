@@ -714,8 +714,8 @@ module "private_endpoint" {
   for_each                      = var.private_endpoint
   name                          = "${each.value.name}-${local.resource_suffix}-${module.random_string.result}"
   resource_group_name           = module.resource_group[each.value.resource_group].name
-  location                      = var.helpers.location
-  subnet_id                     = module.virtual_network["network"].subnets["default"].id
+  location                      = var.helpers.region
+  subnet_id                     = module.virtual_network["alpha"].subnets["default"].id
   custom_network_interface_name = lookup(each.value, "custom_network_interface_name", null)
   private_dns_zone_group        = merge(lookup(each.value, "private_dns_zone_group", {}), local.private_dns_zone_group[each.key])
   private_service_connection    = merge(lookup(each.value, "private_service_connection", {}), local.private_service_connection[each.key])
