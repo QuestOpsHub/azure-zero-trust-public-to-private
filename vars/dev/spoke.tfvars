@@ -512,6 +512,17 @@ private_endpoint = {
       request_message                   = "PL"
     }
   },
+  kv-alpha = {
+    name                   = "pep-kv"
+    resource_group         = "network"
+    private_dns_zone_group = {}
+    private_service_connection = {
+      is_manual_connection              = false
+      private_connection_resource_alias = null
+      subresource_names                 = ["vault"]
+      request_message                   = "PL"
+    }
+  },
   st-alpha = {
     name                   = "pep-st"
     resource_group         = "network"
@@ -541,7 +552,29 @@ private_endpoint = {
     private_service_connection = {
       is_manual_connection              = false
       private_connection_resource_alias = null
-      subresource_names                 = ["blob"]
+      subresource_names                 = ["sites"]
+      request_message                   = "PL"
+    }
+  },
+  func-alpha = {
+    name                   = "pep-func"
+    resource_group         = "network"
+    private_dns_zone_group = {}
+    private_service_connection = {
+      is_manual_connection              = false
+      private_connection_resource_alias = null
+      subresource_names                 = ["sites"]
+      request_message                   = "PL"
+    }
+  },
+  func-beta = {
+    name                   = "pep-func"
+    resource_group         = "network"
+    private_dns_zone_group = {}
+    private_service_connection = {
+      is_manual_connection              = false
+      private_connection_resource_alias = null
+      subresource_names                 = ["sites"]
       request_message                   = "PL"
     }
   },

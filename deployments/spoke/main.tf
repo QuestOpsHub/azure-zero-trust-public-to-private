@@ -649,18 +649,67 @@ locals {
     cosmon-alpha = {
       name                 = data.terraform_remote_state.hub.outputs.private_dns_zone["Sql"].name
       private_dns_zone_ids = [data.terraform_remote_state.hub.outputs.private_dns_zone["Sql"].id]
-    },
+    }
+    kv-alpha = {
+      name                 = data.terraform_remote_state.hub.outputs.private_dns_zone["vault"].name
+      private_dns_zone_ids = [data.terraform_remote_state.hub.outputs.private_dns_zone["vault"].id]
+    }
+    st-alpha = {
+      name                 = data.terraform_remote_state.hub.outputs.private_dns_zone["blob"].name
+      private_dns_zone_ids = [data.terraform_remote_state.hub.outputs.private_dns_zone["blob"].id]
+    }
+    st-beta = {
+      name                 = data.terraform_remote_state.hub.outputs.private_dns_zone["blob"].name
+      private_dns_zone_ids = [data.terraform_remote_state.hub.outputs.private_dns_zone["blob"].id]
+    }
+    app-alpha = {
+      name                 = data.terraform_remote_state.hub.outputs.private_dns_zone["sites"].name
+      private_dns_zone_ids = [data.terraform_remote_state.hub.outputs.private_dns_zone["sites"].id]
+    }
+    func-alpha = {
+      name                 = data.terraform_remote_state.hub.outputs.private_dns_zone["sites"].name
+      private_dns_zone_ids = [data.terraform_remote_state.hub.outputs.private_dns_zone["sites"].id]
+    }
+    func-beta = {
+      name                 = data.terraform_remote_state.hub.outputs.private_dns_zone["sites"].name
+      private_dns_zone_ids = [data.terraform_remote_state.hub.outputs.private_dns_zone["sites"].id]
+    }
   }
+
   private_service_connection = {
     cosmon-alpha = {
       name                           = "${module.cosmosdb_account["alpha"].name}-privateserviceconnection"
       private_connection_resource_id = module.cosmosdb_account["alpha"].id
-    },
+    }
+    kv-alpha = {
+      name                           = "${module.key_vault["alpha"].name}-privateserviceconnection"
+      private_connection_resource_id = module.key_vault["alpha"].id
+    }
+    st-alpha = {
+      name                           = "${module.storage_account["alpha"].name}-privateserviceconnection"
+      private_connection_resource_id = module.storage_account["alpha"].id
+    }
+    st-beta = {
+      name                           = "${module.storage_account["beta"].name}-privateserviceconnection"
+      private_connection_resource_id = module.storage_account["beta"].id
+    }
+    app-alpha = {
+      name                           = "${module.linux_web_app["alpha"].name}-privateserviceconnection"
+      private_connection_resource_id = module.linux_web_app["alpha"].id
+    }
+    func-alpha = {
+      name                           = "${module.linux_function_app["alpha"].name}-privateserviceconnection"
+      private_connection_resource_id = module.linux_function_app["alpha"].id
+    }
+    func-beta = {
+      name                           = "${module.linux_function_app["beta"].name}-privateserviceconnection"
+      private_connection_resource_id = module.linux_function_app["beta"].id
+    }
   }
 }
 
 module "private_endpoint" {
-  source = "git::https://github.com/QuestOpsHub/QuestOpsHub-terraform-azure-modules.git//privateEndPoint?ref=main"
+  source = "git::https://github.com/QuestOpsHub/terraform-azurerm-private-endpoint.git?ref=v1.0.1"
 
   for_each                      = var.private_endpoint
   name                          = "${each.value.name}-${local.resource_suffix}-${module.random_string.result}"
