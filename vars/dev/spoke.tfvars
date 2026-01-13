@@ -502,7 +502,7 @@ cosmosdb_account = {
 #-------------------
 private_endpoint = {
   cosmon-alpha = {
-    name                   = "pep-cosmon"
+    name                   = "pep-cosmon-alpha"
     resource_group         = "network"
     private_dns_zone_group = {}
     private_service_connection = {
@@ -513,7 +513,7 @@ private_endpoint = {
     }
   },
   kv-alpha = {
-    name                   = "pep-kv"
+    name                   = "pep-kv-alpha"
     resource_group         = "network"
     private_dns_zone_group = {}
     private_service_connection = {
@@ -524,7 +524,7 @@ private_endpoint = {
     }
   },
   st-alpha = {
-    name                   = "pep-st"
+    name                   = "pep-st-alpha"
     resource_group         = "network"
     private_dns_zone_group = {}
     private_service_connection = {
@@ -535,7 +535,7 @@ private_endpoint = {
     }
   },
   st-beta = {
-    name                   = "pep-st"
+    name                   = "pep-st-beta"
     resource_group         = "network"
     private_dns_zone_group = {}
     private_service_connection = {
@@ -546,7 +546,7 @@ private_endpoint = {
     }
   },
   app-alpha = {
-    name                   = "pep-st"
+    name                   = "pep-app-alpha"
     resource_group         = "network"
     private_dns_zone_group = {}
     private_service_connection = {
@@ -557,7 +557,7 @@ private_endpoint = {
     }
   },
   func-alpha = {
-    name                   = "pep-func"
+    name                   = "pep-func-alpha"
     resource_group         = "network"
     private_dns_zone_group = {}
     private_service_connection = {
@@ -568,7 +568,7 @@ private_endpoint = {
     }
   },
   func-beta = {
-    name                   = "pep-func"
+    name                   = "pep-func-beta"
     resource_group         = "network"
     private_dns_zone_group = {}
     private_service_connection = {
