@@ -709,7 +709,7 @@ locals {
 }
 
 module "private_endpoint" {
-  source = "git::https://github.com/QuestOpsHub/terraform-azurerm-private-endpoint.git?ref=v1.0.1"
+  source = "git::https://github.com/QuestOpsHub/terraform-azurerm-private-endpoint.git?ref=v1.0.0"
 
   for_each                      = var.private_endpoint
   name                          = "${each.value.name}-${local.resource_suffix}-${module.random_string.result}"
