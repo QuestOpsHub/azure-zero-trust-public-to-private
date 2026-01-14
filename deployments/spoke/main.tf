@@ -61,7 +61,7 @@ module "virtual_network" {
   source = "git::https://github.com/QuestOpsHub/terraform-azurerm-virtual-network.git?ref=v1.0.0"
 
   for_each                = var.virtual_network
-  name                    = "${each.value.name}-${local.resource_suffix}-${module.random_string.result}"
+  name                    = "${each.value.name}-${local.resource_suffix}"
   resource_group_name     = module.resource_group[each.value.resource_group].name
   location                = var.helpers.region
   address_space           = each.value.address_space
@@ -121,7 +121,7 @@ module "user_assigned_identity" {
   source = "git::https://github.com/QuestOpsHub/terraform-azurerm-user-assigned-identity.git?ref=v1.0.0"
 
   for_each            = var.user_assigned_identity
-  name                = "${each.value.name}-${local.resource_suffix}-${module.random_string.result}"
+  name                = "${each.value.name}-${local.resource_suffix}"
   location            = var.helpers.region
   resource_group_name = module.resource_group[each.value.resource_group].name
 
@@ -174,7 +174,7 @@ module "key_vault" {
   source = "git::https://github.com/QuestOpsHub/terraform-azurerm-key-vault.git?ref=v1.0.0"
 
   for_each                        = var.key_vault
-  name                            = "${each.value.name}-${local.resource_suffix}-${module.random_string.result}"
+  name                            = "${each.value.name}-${local.resource_suffix}"
   location                        = var.helpers.region
   resource_group_name             = module.resource_group[each.value.resource_group].name
   sku_name                        = each.value.sku_name
@@ -253,7 +253,7 @@ module "storage_account" {
   source = "git::https://github.com/QuestOpsHub/terraform-azurerm-storage-account.git?ref=v1.0.0"
 
   for_each                         = var.storage_account
-  name                             = lower(replace("${each.value.name}-${local.resource_suffix}-${module.random_string.result}", "/[[:^alnum:]]/", ""))
+  name                             = lower(replace("${each.value.name}-${local.resource_suffix}", "/[[:^alnum:]]/", ""))
   resource_group_name              = module.resource_group[each.value.resource_group].name
   location                         = var.helpers.region
   account_kind                     = lookup(each.value, "account_kind", "StorageV2")
@@ -326,7 +326,7 @@ module "service_plan" {
   source = "git::https://github.com/QuestOpsHub/terraform-azurerm-service-plan.git?ref=v1.0.0"
 
   for_each                     = var.service_plan
-  name                         = "${each.value.name}-${local.resource_suffix}-${module.random_string.result}"
+  name                         = "${each.value.name}-${local.resource_suffix}"
   location                     = var.helpers.region
   resource_group_name          = module.resource_group[each.value.resource_group].name
   os_type                      = each.value.os_type
@@ -354,7 +354,7 @@ module "application_insights" {
   source = "git::https://github.com/QuestOpsHub/terraform-azurerm-application-insights.git?ref=v1.0.1"
 
   for_each                              = var.application_insights
-  name                                  = "${each.value.name}-${local.resource_suffix}-${module.random_string.result}"
+  name                                  = "${each.value.name}-${local.resource_suffix}"
   location                              = var.helpers.region
   resource_group_name                   = module.resource_group[each.value.resource_group].name
   application_type                      = each.value.application_type
@@ -435,7 +435,7 @@ module "linux_web_app" {
   source = "git::https://github.com/QuestOpsHub/terraform-azurerm-linux-webapp.git?ref=v1.0.0"
 
   for_each                                 = var.linux_web_app
-  name                                     = "${each.value.name}-${local.resource_suffix}-${module.random_string.result}"
+  name                                     = "${each.value.name}-${local.resource_suffix}"
   location                                 = var.helpers.region
   resource_group_name                      = module.resource_group[each.value.resource_group].name
   service_plan_id                          = module.service_plan[each.value.service_plan].id
@@ -540,7 +540,7 @@ module "linux_function_app" {
   source = "git::https://github.com/QuestOpsHub/terraform-azurerm-linux-function-app.git?ref=v1.0.0"
 
   for_each                                 = var.linux_function_app
-  name                                     = "${each.value.name}-${local.resource_suffix}-${module.random_string.result}"
+  name                                     = "${each.value.name}-${local.resource_suffix}"
   location                                 = var.helpers.region
   resource_group_name                      = module.resource_group[each.value.resource_group].name
   service_plan_id                          = module.service_plan[each.value.service_plan].id
@@ -593,7 +593,7 @@ module "cosmosdb_account" {
   source = "git::https://github.com/QuestOpsHub/terraform-azurerm-cosmosdb-account.git?ref=v1.0.1"
 
   for_each                              = var.cosmosdb_account
-  name                                  = "${each.value.name}-${local.resource_suffix}-${module.random_string.result}"
+  name                                  = "${each.value.name}-${local.resource_suffix}"
   location                              = var.helpers.region
   resource_group_name                   = module.resource_group[each.value.resource_group].name
   minimal_tls_version                   = lookup(each.value, "minimal_tls_version", "Tls12")
@@ -712,7 +712,7 @@ module "private_endpoint" {
   source = "git::https://github.com/QuestOpsHub/terraform-azurerm-private-endpoint.git?ref=v1.0.0"
 
   for_each                      = var.private_endpoint
-  name                          = "${each.value.name}-${local.resource_suffix}-${module.random_string.result}"
+  name                          = "${each.value.name}-${local.resource_suffix}"
   resource_group_name           = module.resource_group[each.value.resource_group].name
   location                      = var.helpers.region
   subnet_id                     = module.virtual_network["alpha"].subnets["default"].id
