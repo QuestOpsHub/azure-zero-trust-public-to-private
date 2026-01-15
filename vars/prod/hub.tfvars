@@ -137,13 +137,13 @@ api_management = {
       frontend_ssl30_enabled = true
     }
     public_network_access_enabled = true
-    identifier                    = "applicationinsights"
     api_management_logger_name    = "apim-logger"
-    sampling_percentage           = 100.0
+    identifier                    = "applicationinsights"
     always_log_errors             = true
-    log_client_ip                 = true
-    verbosity                     = "information"
     http_correlation_protocol     = "W3C"
+    log_client_ip                 = true
+    sampling_percentage           = 100.0
+    verbosity                     = "information"
   },
 }
 
