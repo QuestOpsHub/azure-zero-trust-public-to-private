@@ -733,13 +733,13 @@ locals {
 }
 
 module "mssql_server" {
-  source = "git::https://github.com/QuestOpsHub/terraform-azurerm-mssql-server.git?ref=v1.0.0"
+  source = "git::https://github.com/QuestOpsHub/terraform-azurerm-mssql-server.git?ref=v1.0.1"
 
   for_each                     = var.mssql_server
   name                         = "${each.value.name}-${local.resource_suffix}"
   location                     = var.helpers.region
   resource_group_name          = module.resource_group[each.value.resource_group].name
-  version                      = each.value.version
+  mssql_server_version         = each.value.mssql_server_version
   administrator_login          = var.admin_username
   administrator_login_password = var.admin_password
   azuread_administrator        = merge(lookup(each.value, "azuread_administrator", {}), local.mssql_server.azuread_administrator[each.key])

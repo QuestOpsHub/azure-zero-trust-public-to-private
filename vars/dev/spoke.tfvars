@@ -589,9 +589,9 @@ private_endpoint = {
 #--------------
 mssql_server = {
   alpha = {
-    name           = "sql"
-    resource_group = "database"
-    version        = "12.0"
+    name                 = "sql"
+    resource_group       = "database"
+    mssql_server_version = "12.0"
     azuread_administrator = {
       azuread_authentication_only = false
     }
