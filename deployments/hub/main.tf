@@ -125,7 +125,6 @@ module "application_insights" {
 #----------------
 # API Management
 #----------------
-# @todo add all supported arguments
 module "api_management" {
   source = "git::https://github.com/QuestOpsHub/terraform-azurerm-api-management.git?ref=v1.0.4"
 
