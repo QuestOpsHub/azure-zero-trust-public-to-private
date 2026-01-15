@@ -456,12 +456,12 @@ module "linux_virtual_machine" {
 # Container Registry
 #--------------------
 module "container_registry" {
-  source = "git::https://github.com/QuestOpsHub/QuestOpsHub-terraform-azure-modules.git//containerRegistry?ref=main"
+  source = "git::https://github.com/QuestOpsHub/terraform-azurerm-container-registry.git?ref=v1.0.1"
 
   for_each                      = var.container_registry
-  name                          = replace("${each.value.name}-${local.resource_suffix}-${module.random_string.result}", "/[[:^alnum:]]/", "")
+  name                          = replace("${each.value.name}-${local.resource_suffix}", "/[[:^alnum:]]/", "")
   resource_group_name           = module.resource_group[each.value.resource_group].name
-  location                      = var.helpers.location
+  location                      = var.helpers.region
   sku                           = each.value.sku
   admin_enabled                 = lookup(each.value, "admin_enabled", false)
   georeplications               = lookup(each.value, "georeplications", {})

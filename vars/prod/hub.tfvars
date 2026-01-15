@@ -106,6 +106,10 @@ user_assigned_identity = {
     name           = "id-apim"
     resource_group = "security"
   },
+  acr = {
+    name           = "id-acr"
+    resource_group = "security"
+  },
 }
 
 #----------------------
@@ -633,9 +637,9 @@ SETTINGS
 # Container Registry
 #--------------------
 container_registry = {
-  "acr" = {
+  alpha = {
     name           = "acr"
-    resource_group = "acr"
+    resource_group = "container"
     sku            = "Standard"
     identity = {
       type     = "UserAssigned"
