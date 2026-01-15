@@ -727,7 +727,7 @@ locals {
       alpha = {
         login_username = data.azuread_user.admin_user.user_principal_name
         object_id      = data.azuread_user.admin_user.object_id
-      }
+      },
     }
   }
 }

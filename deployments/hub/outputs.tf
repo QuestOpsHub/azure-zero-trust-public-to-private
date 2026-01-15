@@ -33,13 +33,6 @@ output "user_assigned_identity" {
   value = module.user_assigned_identity
 }
 
-#----------------------
-# Application Insights
-#----------------------
-output "application_insights" {
-  value = module.application_insights
-}
-
 #----------------
 # API Management
 #----------------
@@ -93,5 +86,6 @@ output "windows_virtual_machine" {
 # Container Registry
 #--------------------
 output "container_registry" {
-  value = module.container_registry
+  value     = module.container_registry
+  sensitive = true
 }
