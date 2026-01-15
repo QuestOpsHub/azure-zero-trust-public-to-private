@@ -89,7 +89,7 @@ module "user_assigned_identity" {
     }
   )
 }
-
+/*
 #----------------------
 # Application Insights
 #----------------------
@@ -451,7 +451,7 @@ module "linux_virtual_machine" {
     }
   )
 }
-
+*/
 #-------------------------
 # Windows Virtual Machine
 #-------------------------
@@ -500,7 +500,7 @@ module "windows_virtual_machine" {
     }
   )
 }
-
+/*
 #--------------------
 # Container Registry
 #--------------------
@@ -540,3 +540,4 @@ module "container_registry" {
     }
   )
 }
+*/
