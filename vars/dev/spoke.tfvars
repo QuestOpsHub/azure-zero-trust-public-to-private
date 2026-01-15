@@ -508,7 +508,7 @@ private_endpoint = {
     private_service_connection = {
       is_manual_connection              = false
       private_connection_resource_alias = null
-      subresource_names                 = ["Sql"]
+      subresource_names                 = ["MongoDB"]
       request_message                   = "PL"
     }
   },
