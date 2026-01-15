@@ -122,6 +122,10 @@ user_assigned_identity = {
     name           = "id-cosmon"
     resource_group = "security"
   },
+  sql = {
+    name           = "id-sql"
+    resource_group = "security"
+  },
 }
 
 #-----------
@@ -577,5 +581,34 @@ private_endpoint = {
       subresource_names                 = ["sites"]
       request_message                   = "PL"
     }
+  },
+}
+
+#--------------
+# MSSQL Server
+#--------------
+mssql_server = {
+  alpha = {
+    name           = "sql"
+    resource_group = "database"
+    version        = "12.0"
+    azuread_administrator = {
+      azuread_authentication_only = false
+    }
+    connection_policy = "Default"
+    identity = {
+      type     = "UserAssigned"
+      identity = "sql"
+    }
+  },
+}
+
+#----------------
+# MSSQL Database
+#----------------
+mssql_database = {
+  alpha = {
+    name         = "sqldb"
+    mssql_server = "alpha"
   },
 }

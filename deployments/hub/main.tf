@@ -5,19 +5,6 @@ terraform {
   backend "azurerm" {}
 }
 
-#---------------
-# Random String
-#---------------
-module "random_string" {
-  source = "git::https://github.com/QuestOpsHub/terraform-azurerm-random-string.git?ref=v1.0.0"
-
-  length  = 4
-  lower   = true
-  numeric = true
-  special = false
-  upper   = false
-}
-
 #----------------
 # Resource Group
 #----------------
@@ -167,6 +154,30 @@ module "api_management" {
   )
 }
 
+#------------------------
+# Network Security Group
+#------------------------
+module "network_security_group" {
+  source = "git::https://github.com/QuestOpsHub/terraform-azurerm-network-security-group.git?ref=v1.0.0"
+
+  for_each            = var.network_security_group
+  name                = each.value.name
+  resource_group_name = module.resource_group[each.value.resource_group].name
+  location            = var.helpers.region
+  inbound_rules       = each.value.inbound_rules
+  outbound_rules      = each.value.outbound_rules
+  subnet_id           = module.virtual_network[each.value.virtual_network].subnets[each.value.subnet].id
+
+  tags = merge(
+    local.timestamp_tag,
+    local.common_tags,
+    {
+      team  = lookup(each.value, "resource_tags", local.resource_tags).team
+      owner = lookup(each.value, "resource_tags", local.resource_tags).owner
+    }
+  )
+}
+
 #------------------
 # Private Dns Zone
 #------------------
@@ -190,30 +201,6 @@ module "private_dns_zone" {
   soa_record          = lookup(each.value, "soa_record", {})
   # virtual_network_ids = distinct(concat(local.virtual_network_ids, lookup(each.value, "virtual_network_ids", [])))
   virtual_network_ids = lookup(each.value, "virtual_network_ids", [])
-
-  tags = merge(
-    local.timestamp_tag,
-    local.common_tags,
-    {
-      team  = lookup(each.value, "resource_tags", local.resource_tags).team
-      owner = lookup(each.value, "resource_tags", local.resource_tags).owner
-    }
-  )
-}
-
-#------------------------
-# Network Security Group
-#------------------------
-module "network_security_group" {
-  source = "git::https://github.com/QuestOpsHub/terraform-azurerm-network-security-group.git?ref=v1.0.0"
-
-  for_each            = var.network_security_group
-  name                = each.value.name
-  resource_group_name = module.resource_group[each.value.resource_group].name
-  location            = var.helpers.region
-  inbound_rules       = each.value.inbound_rules
-  outbound_rules      = each.value.outbound_rules
-  subnet_id           = module.virtual_network[each.value.virtual_network].subnets[each.value.subnet].id
 
   tags = merge(
     local.timestamp_tag,

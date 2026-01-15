@@ -99,3 +99,13 @@ variable "private_endpoint" {}
 variable "admin_username" {}
 
 variable "admin_password" {}
+
+#--------------
+# MSSQL Server
+#--------------
+variable "mssql_server" {}
+
+#----------------
+# MSSQL Database
+#----------------
+variable "mssql_database" {}
