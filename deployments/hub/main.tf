@@ -476,6 +476,7 @@ module "windows_virtual_machine" {
   size                       = each.value.size
   os_disk                    = each.value.os_disk
   allow_extension_operations = lookup(each.value, "allow_extension_operations", true)
+  computer_name              = lookup(each.value, "computer_name", null)
   custom_data                = lookup(each.value, "custom_data", null)
   edge_zone                  = lookup(each.value, "edge_zone", null)
   identity = {
