@@ -648,6 +648,7 @@ windows_virtual_machine = {
       disk_size_gb         = "127"
     }
     allow_extension_operations = true
+    computer_name              = "vm-win-jb"
     custom_data                = null
     edge_zone                  = null
     identity = {
