@@ -126,7 +126,7 @@ module "application_insights" {
 # API Management
 #----------------
 module "api_management" {
-  source = "git::https://github.com/QuestOpsHub/terraform-azurerm-api-management.git?ref=v1.0.4"
+  source = "git::https://github.com/QuestOpsHub/terraform-azurerm-api-management.git?ref=v1.0.5"
 
   for_each            = var.api_management
   name                = "${each.value.name}-${local.resource_suffix}"
