@@ -665,6 +665,12 @@ windows_virtual_machine = {
     user_data    = null
     vtpm_enabled = null
     zone         = null
+    ip_configuration = {
+      name                          = "linuxVirtualMachineConfig"
+      private_ip_address_version    = "IPv4"
+      private_ip_address_allocation = "Dynamic"
+      primary                       = true
+    }
     managed_disks = {
       disk01 = {
         storage_account_type = "Standard_LRS"
