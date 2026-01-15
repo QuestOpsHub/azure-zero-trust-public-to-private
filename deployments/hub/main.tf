@@ -464,7 +464,7 @@ locals {
 }
 
 module "windows_virtual_machine" {
-  source = "git::https://github.com/QuestOpsHub/terraform-azurerm-windows-virtual-machine.git?ref=v1.0.2"
+  source = "git::https://github.com/QuestOpsHub/terraform-azurerm-windows-virtual-machine.git?ref=v1.0.3"
 
   for_each                   = var.windows_virtual_machine
   name                       = lower(replace("${each.value.name}-${local.resource_suffix}", "/[[:^alnum:]]/", ""))

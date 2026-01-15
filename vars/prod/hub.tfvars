@@ -645,7 +645,7 @@ windows_virtual_machine = {
     os_disk = {
       caching              = "ReadWrite"
       storage_account_type = "StandardSSD_LRS"
-      disk_size_gb         = "30"
+      disk_size_gb         = "127"
     }
     allow_extension_operations = true
     custom_data                = null
