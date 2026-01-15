@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 #---------------
 # CONFIGURATION
 #---------------
@@ -46,25 +48,34 @@ DRY_RUN=false   # set to true to preview only
 # FUNCTIONS
 #-----------
 
-delete_resource_groups() {
-  local subscription_id="$1"
-  shift
-  local resource_groups=("$@")
-
-  echo "🔎 Switching to subscription: $subscription_id"
-  az account set --subscription "$subscription_id"
+print_section_header() {
+  local title="$1"
 
   echo ""
+  echo "#-----------------------------------"
+  echo "# Deleting ${title} RG's"
+  echo "#-----------------------------------"
+  echo ""
+}
+
+delete_resource_groups() {
+  local subscription_id="$1"
+  local title="$2"
+  shift 2
+  local resource_groups=("$@")
+
+  print_section_header "$title"
+
+  az account set --subscription "$subscription_id"
 
   for rg in "${resource_groups[@]}"; do
-    if az group show --name "$rg" --subscription "$subscription_id" &>/dev/null; then
+    if az group show --name "$rg" &>/dev/null; then
       if [[ "$DRY_RUN" == "true" ]]; then
         echo "🟡 DRY-RUN: Would delete RG '$rg'"
       else
         echo "🔥 Deleting RG '$rg'..."
         az group delete \
           --name "$rg" \
-          --subscription "$subscription_id" \
           --yes \
           --no-wait
       fi
@@ -78,10 +89,5 @@ delete_resource_groups() {
 # EXECUTION
 #-----------
 
-echo ""
-
-delete_resource_groups "$HUB_SUBSCRIPTION_ID" "${HUB_RESOURCE_GROUPS[@]}"
-delete_resource_groups "$SPOKE_SUBSCRIPTION_ID" "${SPOKE_RESOURCE_GROUPS[@]}"
-
-echo ""
-echo "✅ Cleanup triggered (jumpbox preserved)"
+delete_resource_groups "$HUB_SUBSCRIPTION_ID" "hub_subscription" "${HUB_RESOURCE_GROUPS[@]}"
+delete_resource_groups "$SPOKE_SUBSCRIPTION_ID" "spoke_subscription" "${SPOKE_RESOURCE_GROUPS[@]}"
