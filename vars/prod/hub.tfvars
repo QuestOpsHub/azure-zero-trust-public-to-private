@@ -633,6 +633,50 @@ SETTINGS
   },
 }
 
+#-------------------------
+# Windows Virtual Machine
+#-------------------------
+windows_virtual_machine = {
+  alpha = {
+    name           = "vm-win-jb"
+    resource_group = "compute"
+    size           = "Standard_DS3_v2"
+    license_type   = null
+    os_disk = {
+      caching              = "ReadWrite"
+      storage_account_type = "StandardSSD_LRS"
+      disk_size_gb         = "30"
+    }
+    allow_extension_operations = true
+    custom_data                = null
+    edge_zone                  = null
+    identity = {
+      type     = "UserAssigned"
+      identity = "vm-win"
+    }
+    provision_vm_agent = true
+    source_image_id    = null
+    source_image_reference = {
+      publisher = "MicrosoftWindowsServer"
+      offer     = "WindowsServer"
+      sku       = "2019-Datacenter"
+      version   = "latest"
+    }
+    user_data    = null
+    vtpm_enabled = null
+    zone         = null
+    managed_disk = {
+      disk01 = {
+        storage_account_type = "Standard_LRS"
+        create_option        = "Empty"
+        disk_size_gb         = "10"
+        lun                  = "10"
+        caching              = "ReadWrite"
+      },
+    }
+  }
+}
+
 #--------------------
 # Container Registry
 #--------------------

@@ -78,6 +78,11 @@ variable "admin_username" {}
 
 variable "admin_password" {}
 
+#-------------------------
+# Windows Virtual Machine
+#-------------------------
+variable "windows_virtual_machine" {}
+
 #--------------------
 # Container Registry
 #--------------------
