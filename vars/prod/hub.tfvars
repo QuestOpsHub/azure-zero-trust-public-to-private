@@ -628,3 +628,18 @@ SETTINGS
     }
   },
 }
+
+#--------------------
+# Container Registry
+#--------------------
+container_registry = {
+  "acr" = {
+    name           = "acr"
+    resource_group = "acr"
+    sku            = "Standard"
+    identity = {
+      type     = "UserAssigned"
+      identity = "acr"
+    }
+  }
+}

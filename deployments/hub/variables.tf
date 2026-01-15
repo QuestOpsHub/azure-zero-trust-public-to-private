@@ -77,3 +77,8 @@ variable "linux_virtual_machine" {}
 variable "admin_username" {}
 
 variable "admin_password" {}
+
+#--------------------
+# Container Registry
+#--------------------
+variable "container_registry" {}
