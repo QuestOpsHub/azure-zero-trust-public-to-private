@@ -767,7 +767,7 @@ module "mssql_database" {
   source = "git::https://github.com/QuestOpsHub/terraform-azurerm-mssql-database.git?ref=v1.0.0"
 
   for_each                    = var.mssql_database
-  mssql_database_name         = "${each.value.name}-${local.resource_suffix}"
+  name                        = "${each.value.name}-${local.resource_suffix}"
   server_id                   = module.mssql_server[each.value.mssql_server].id
   auto_pause_delay_in_minutes = lookup(each.value, "auto_pause_delay_in_minutes", null)
   collation                   = lookup(each.value, "collation", "SQL_Latin1_General_CP1_CI_AS")
