@@ -748,7 +748,7 @@ module "mssql_server" {
     type         = each.value.identity.type
     identity_ids = each.value.identity.type == "UserAssigned" || each.value.identity.type == "SystemAssigned, UserAssigned" ? [module.user_assigned_identity[each.value.identity.identity].id] : null
   }
-  primary_user_assigned_identity_id = each.value.identity.type == "UserAssigned" || each.value.identity.type == "SystemAssigned, UserAssigned" ? module.user_identity[each.value.identity.identity].id : null
+  primary_user_assigned_identity_id = each.value.identity.type == "UserAssigned" || each.value.identity.type == "SystemAssigned, UserAssigned" ? module.user_assigned_identity[each.value.identity.identity].id : null
 
   tags = merge(
     local.timestamp_tag,
