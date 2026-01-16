@@ -44,9 +44,9 @@ module "api_management" {
   )
 }
 
-#----------------
-# API Management
-#----------------
+#---------
+# Outputs
+#---------
 output "api_management" {
   value = module.api_management
 }

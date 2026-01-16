@@ -175,13 +175,7 @@ key_vault = {
 #------------------
 # Key Vault Secret
 #------------------
-key_vault_secret = {
-  # alpha = {
-  #   name      = "alpha"
-  #   value     = "alpha"
-  #   key_vault = "alpha"
-  # },
-}
+key_vault_secret = {}
 
 #-----------------
 # Storage Account

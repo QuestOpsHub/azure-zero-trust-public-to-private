@@ -23,3 +23,10 @@ provider "azurerm" {
     }
   }
 }
+
+#---------
+# Backend 
+#---------
+terraform {
+  backend "azurerm" {}
+}
