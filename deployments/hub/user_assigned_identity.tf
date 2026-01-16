@@ -19,10 +19,6 @@ module "user_assigned_identity" {
   )
 }
 
-#-----------
-# Variables
-#-----------
-
 #---------
 # Outputs
 #---------

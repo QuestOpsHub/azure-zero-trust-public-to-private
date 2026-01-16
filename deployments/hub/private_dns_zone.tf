@@ -32,11 +32,6 @@ module "private_dns_zone" {
   )
 }
 
-#------------------
-# Private Dns Zone
-#------------------
-variable "private_dns_zone" {}
-
 #---------
 # Outputs
 #---------
