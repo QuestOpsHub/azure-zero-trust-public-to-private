@@ -70,6 +70,22 @@ virtual_network = {
         address_prefixes  = ["34.0.1.0/24"]
         service_endpoints = ["Microsoft.KeyVault", "Microsoft.Storage"]
       },
+      # MSSQL Managed Instance requires a delegated subnet
+      sql = {
+        name             = "snet-sql"
+        address_prefixes = ["34.0.2.0/26"]
+        delegation = {
+          name = "managedinstancedelegation"
+          service_delegation = {
+            name = "Microsoft.Sql/managedInstances"
+            actions = [
+              "Microsoft.Network/virtualNetworks/subnets/join/action",
+              "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
+              "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action"
+            ]
+          }
+        }
+      },
     }
   },
 }
@@ -124,6 +140,10 @@ user_assigned_identity = {
   },
   sql = {
     name           = "id-sql"
+    resource_group = "security"
+  },
+  sqlmi = {
+    name           = "id-sqlmi"
     resource_group = "security"
   },
 }
@@ -582,6 +602,17 @@ private_endpoint = {
       request_message                   = "PL"
     }
   },
+  sql-alpha = {
+    name                   = "pep-sql-alpha"
+    resource_group         = "network"
+    private_dns_zone_group = {}
+    private_service_connection = {
+      is_manual_connection              = false
+      private_connection_resource_alias = null
+      subresource_names                 = ["sqlServer"]
+      request_message                   = "PL"
+    }
+  },
 }
 
 #--------------
@@ -610,5 +641,34 @@ mssql_database = {
   alpha = {
     name         = "sqldb"
     mssql_server = "alpha"
+  },
+}
+
+#------------------------
+# MSSQL Managed Instance
+#------------------------
+mssql_managed_instance = {
+  alpha = {
+    name               = "sqlmi"
+    resource_group     = "database"
+    license_type       = "BasePrice"
+    sku_name           = "GP_Gen5"
+    storage_size_in_gb = "64"
+    subnet             = "sql"
+    vcores             = "8"
+    identity = {
+      type     = "UserAssigned"
+      identity = "sqlmi"
+    }
+  },
+}
+
+#------------------------
+# MSSQL Managed Database
+#------------------------
+mssql_managed_database = {
+  alpha = {
+    name                   = "sqlmdb"
+    mssql_managed_instance = "alpha"
   },
 }

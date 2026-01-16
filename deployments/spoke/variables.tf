@@ -109,3 +109,13 @@ variable "mssql_server" {}
 # MSSQL Database
 #----------------
 variable "mssql_database" {}
+
+#------------------------
+# MSSQL Managed Instance
+#------------------------
+variable "mssql_managed_instance" {}
+
+#------------------------
+# MSSQL Managed Database
+#------------------------
+variable "mssql_managed_database" {}
