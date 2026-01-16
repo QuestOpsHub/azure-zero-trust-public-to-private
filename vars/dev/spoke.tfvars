@@ -521,6 +521,64 @@ cosmosdb_account = {
   },
 }
 
+#--------------
+# MSSQL Server
+#--------------
+mssql_server = {
+  alpha = {
+    name                 = "sql"
+    resource_group       = "database"
+    mssql_server_version = "12.0"
+    azuread_administrator = {
+      azuread_authentication_only = false
+    }
+    connection_policy = "Default"
+    identity = {
+      type     = "UserAssigned"
+      identity = "sql"
+    }
+  },
+}
+
+#----------------
+# MSSQL Database
+#----------------
+mssql_database = {
+  alpha = {
+    name         = "sqldb"
+    mssql_server = "alpha"
+  },
+}
+
+#------------------------
+# MSSQL Managed Instance
+#------------------------
+mssql_managed_instance = {
+  alpha = {
+    name               = "sqlmi"
+    resource_group     = "database"
+    license_type       = "BasePrice"
+    sku_name           = "GP_Gen5"
+    storage_size_in_gb = "64"
+    subnet             = "sql"
+    vcores             = "8"
+    identity = {
+      type     = "UserAssigned"
+      identity = "sqlmi"
+    }
+  },
+}
+
+#------------------------
+# MSSQL Managed Database
+#------------------------
+mssql_managed_database = {
+  alpha = {
+    name                   = "sqlmdb"
+    mssql_managed_instance = "alpha"
+  },
+}
+
 #-------------------
 # Private End Point
 #-------------------
@@ -612,63 +670,5 @@ private_endpoint = {
       subresource_names                 = ["sqlServer"]
       request_message                   = "PL"
     }
-  },
-}
-
-#--------------
-# MSSQL Server
-#--------------
-mssql_server = {
-  alpha = {
-    name                 = "sql"
-    resource_group       = "database"
-    mssql_server_version = "12.0"
-    azuread_administrator = {
-      azuread_authentication_only = false
-    }
-    connection_policy = "Default"
-    identity = {
-      type     = "UserAssigned"
-      identity = "sql"
-    }
-  },
-}
-
-#----------------
-# MSSQL Database
-#----------------
-mssql_database = {
-  alpha = {
-    name         = "sqldb"
-    mssql_server = "alpha"
-  },
-}
-
-#------------------------
-# MSSQL Managed Instance
-#------------------------
-mssql_managed_instance = {
-  alpha = {
-    name               = "sqlmi"
-    resource_group     = "database"
-    license_type       = "BasePrice"
-    sku_name           = "GP_Gen5"
-    storage_size_in_gb = "64"
-    subnet             = "sql"
-    vcores             = "8"
-    identity = {
-      type     = "UserAssigned"
-      identity = "sqlmi"
-    }
-  },
-}
-
-#------------------------
-# MSSQL Managed Database
-#------------------------
-mssql_managed_database = {
-  alpha = {
-    name                   = "sqlmdb"
-    mssql_managed_instance = "alpha"
   },
 }

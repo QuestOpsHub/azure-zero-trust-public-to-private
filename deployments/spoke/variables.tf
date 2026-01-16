@@ -88,22 +88,14 @@ variable "linux_function_app" {}
 #------------------
 variable "cosmosdb_account" {}
 
-#-------------------
-# Private End Point
-#-------------------
-variable "private_endpoint" {}
-
-#------
-# MISC
-#------
-variable "admin_username" {}
-
-variable "admin_password" {}
-
 #--------------
 # MSSQL Server
 #--------------
 variable "mssql_server" {}
+
+variable "admin_username" {}
+
+variable "admin_password" {}
 
 #----------------
 # MSSQL Database
@@ -119,3 +111,8 @@ variable "mssql_managed_instance" {}
 # MSSQL Managed Database
 #------------------------
 variable "mssql_managed_database" {}
+
+#-------------------
+# Private End Point
+#-------------------
+variable "private_endpoint" {}
