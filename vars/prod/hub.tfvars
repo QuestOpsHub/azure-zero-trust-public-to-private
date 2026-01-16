@@ -501,16 +501,11 @@ key_vault = {
 # Key Vault Secret
 #------------------
 key_vault_secret = {
-  alpha = {
-    name      = "alpha"
-    value     = "alpha"
-    key_vault = "alpha"
-  }
-  beta = {
-    name      = "beta"
-    value     = "beta"
-    key_vault = "alpha"
-  }
+  # alpha = {
+  #   name      = "alpha"
+  #   value     = "alpha"
+  #   key_vault = "alpha"
+  # },
 }
 
 #-----------

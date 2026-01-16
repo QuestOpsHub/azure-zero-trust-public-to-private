@@ -33,12 +33,7 @@ output "user_assigned_identity" {
   value = module.user_assigned_identity
 }
 
-#----------------
-# API Management
-#----------------
-output "api_management" {
-  value = module.api_management
-}
+
 
 #-----------
 # Key Vault
