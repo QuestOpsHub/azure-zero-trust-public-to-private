@@ -66,28 +66,33 @@ virtual_network = {
     address_space  = ["34.0.0.0/16"]
     subnets = {
       default = {
-        name              = "default"
-        address_prefixes  = ["34.0.1.0/24"]
-        service_endpoints = ["Microsoft.KeyVault", "Microsoft.Storage"]
+        name             = "default"
+        address_prefixes = ["34.0.1.0/24"]
+        service_endpoints = [
+          "Microsoft.KeyVault",
+          "Microsoft.Storage"
+        ]
       },
       # MSSQL Managed Instance requires a delegated subnet
       sql = {
         name             = "snet-sql"
         address_prefixes = ["34.0.2.0/26"]
         delegation = {
-          name = "managedinstancedelegation"
-          service_delegation = {
-            name = "Microsoft.Sql/managedInstances"
-            actions = [
-              "Microsoft.Network/virtualNetworks/subnets/join/action",
-              "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
-              "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action"
-            ]
+          managed_instance = {
+            name = "managedinstancedelegation"
+            service_delegation = {
+              name = "Microsoft.Sql/managedInstances"
+              actions = [
+                "Microsoft.Network/virtualNetworks/subnets/join/action",
+                "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
+                "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action"
+              ]
+            }
           }
         }
       },
     }
-  },
+  }
 }
 
 #---------------------------------------
