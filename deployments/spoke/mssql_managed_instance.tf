@@ -11,7 +11,7 @@ module "mssql_managed_instance" {
   license_type                 = each.value.license_type
   sku_name                     = each.value.sku_name
   storage_size_in_gb           = each.value.storage_size_in_gb
-  subnet_id                    = module.virtual_network["alpha"].subnet[each.value.subnet].id
+  subnet_id                    = module.virtual_network["alpha"].subnet["sql"].id
   vcores                       = each.value.vcores
   administrator_login          = var.admin_username
   administrator_login_password = var.admin_password
