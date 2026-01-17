@@ -200,9 +200,13 @@ storage_account = {
     }
     blob_properties = {
       cors_rule = {
-        allowed_headers    = ["*"]
-        allowed_methods    = ["GET"]
-        allowed_origins    = ["https://*.lightmetrics.co", "https://*.detroitconnect.com", "http://localhost:4300"]
+        allowed_headers = ["*"]
+        allowed_methods = ["GET"]
+        allowed_origins = [
+          "https://*.lightmetrics.co",
+          "https://*.detroitconnect.com",
+          "http://localhost:4300"
+        ]
         exposed_headers    = ["x-ms-meta-*"]
         max_age_in_seconds = "200"
       }
@@ -247,9 +251,13 @@ storage_account = {
     }
     blob_properties = {
       cors_rule = {
-        allowed_headers    = ["*"]
-        allowed_methods    = ["GET"]
-        allowed_origins    = ["https://*.lightmetrics.co", "https://*.detroitconnect.com", "http://localhost:4300"]
+        allowed_headers = ["*"]
+        allowed_methods = ["GET"]
+        allowed_origins = [
+          "https://*.lightmetrics.co",
+          "https://*.detroitconnect.com",
+          "http://localhost:4300"
+        ]
         exposed_headers    = ["x-ms-meta-*"]
         max_age_in_seconds = "200"
       }

@@ -55,6 +55,6 @@ module "mssql_managed_database" {
   for_each                   = var.mssql_managed_database
   name                       = "${each.value.name}-${local.resource_suffix}"
   managed_instance_id        = module.mssql_managed_instance[each.value.mssql_managed_instance].id
-  long_term_retention_policy = lookup(each.value, "long_term_retention_policy", null)
+  long_term_retention_policy = lookup(each.value, "long_term_retention_policy", {})
   short_term_retention_days  = lookup(each.value, "short_term_retention_days", null)
 }
