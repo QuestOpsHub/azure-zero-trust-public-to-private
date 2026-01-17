@@ -82,7 +82,7 @@ locals {
     k => {
       key_vault = v.key_vault
       name      = k
-      value     = "${k}-${local.timestamp_sanitized}-${random_string.kv_secret[k].result}"
+      value     = "${k}-${local.time_compact_utc}-${random_string.kv_secret[k].result}"
     }
   }
 }

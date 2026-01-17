@@ -1,6 +1,7 @@
 locals {
   timestamp           = timestamp()
   timestamp_sanitized = formatdate("DD MMM YYYY hh:mm ZZZ", local.timestamp)
+  time_compact_utc    = formatdate("YYYYMMDDHHmm", local.timestamp)
   timestamp_tag = {
     creation_timestamp = local.timestamp_sanitized
   }
